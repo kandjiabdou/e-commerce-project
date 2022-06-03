@@ -7,3 +7,4 @@ require_once './model/DatabaseUserRepository.php';
 $userController = new UserLoginController(new AuthenticationService(), new DatabaseUserRepository());
 CommonComponents::render($userController->loginAction(), false);
 
+// test
