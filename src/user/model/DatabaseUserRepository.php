@@ -16,7 +16,7 @@ class DatabaseUserRepository implements UserRepository
 
   public function checkUserExistence(string $username, string $password): bool
   {
-    $request = $this->database->prepare('SELECT count(*) AS numberOfUsers FROM user WHERE username = :username AND password = :password');
+    $request = $this->database->prepare('SELECT count(*) AS numberOfUsers FROM user WHERE username = :username AND password = md5(:password)');
     $request->execute([
       'username' => $username,
       'password' => $password
@@ -45,7 +45,7 @@ class DatabaseUserRepository implements UserRepository
 
   public function createUser($firstName, $lastName, $username, $password): void
   {
-    $request = $this->database->prepare('INSERT INTO user(firstname, lastname, username, password) VALUES (:firstname, :lastname, :username, :password)');
+    $request = $this->database->prepare('INSERT INTO user(firstname, lastname, username, password) VALUES (:firstname, :lastname, :username, md5(:password))');
     $request->execute([
       'firstname' => $firstName,
       'lastname' => $lastName,
