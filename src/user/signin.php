@@ -6,4 +6,5 @@ require_once './model/DatabaseUserRepository.php';
 
 $userController = new UserSigninController(new AuthenticationService(), new DatabaseUserRepository());
 CommonComponents::render($userController->signinAction(), false);
+//salut
 
