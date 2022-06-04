@@ -15,9 +15,7 @@ function buildSigninForm($values, string $error): string
         <div class="card">
           <div class="card-body">
             $errorAlert
-              
               <h2 class="text-center mb-5">Inscription</h2>
-              
               <form action="" method="post">
                 <div class="form-group">
                   <label for="firstName">prénom:</label>

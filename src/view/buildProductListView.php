@@ -6,21 +6,21 @@ function buildProductListView($productList): string
   if (empty($productList)) {
     $render = '<strong>Aucun produit dans cette sous catégorie</strong>';
   } else {
-      foreach ($productList as $product) {
+    foreach ($productList as $product) {
         $render .= '<div class="produit_list">
-        <div class="image_produit">
-            <a href="">
-                <img class="display" src='.$product['cheminimage'].' alt="image produit"/>
-            </a>
-        </div>
-        <div class="content_produit">
-            <a href="">
-                <span><strong>'.$product['nomProduit'].'</strong></span></a>
-            <hr>
-            <span class="description">'.$product['description'].'</span>
-        </div>
-    </div>';
-      }
+            <div class="image_produit">
+                <a href="">
+                    <img class="display" src='.$product['cheminimage'].' alt="image produit"/>
+                </a>
+            </div>
+            <div class="content_produit">
+                <a href="">
+                    <span><strong>'.$product['nomProduit'].'</strong></span></a>
+                <hr>
+                <span class="description">'.$product['description'].'</span>
+            </div>
+        </div>';
+    }
   }
 
   return <<<HTML

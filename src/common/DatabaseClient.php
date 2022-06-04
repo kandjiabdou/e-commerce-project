@@ -8,8 +8,7 @@ class DatabaseClient {
   private $username = 'root';
   private $password = 'root';
 
-  private function __construct()
-  {
+  private function __construct(){
     $this->database = new PDO("mysql:host={$this->host};dbname={$this->dbName};charset=utf8",
       $this->username,
       $this->password,
