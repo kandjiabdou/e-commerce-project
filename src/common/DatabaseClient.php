@@ -6,7 +6,7 @@ class DatabaseClient {
   private $host = 'localhost';
   private $dbName = 'e-commerce-project';
   private $username = 'root';
-  private $password = '';
+  private $password = 'root';
 
   private function __construct()
   {
