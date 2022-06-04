@@ -1,4 +1,3 @@
-
 <?php
 require_once __DIR__ . '/../../common/DatabaseClient.php';
 require_once __DIR__ . '/UserRepository.php';
