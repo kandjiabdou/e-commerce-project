@@ -4,7 +4,7 @@ class DatabaseClient {
   private $database;
 
   private $host = 'localhost';
-  private $dbName = 'tp-compteur';
+  private $dbName = 'e-commerce-project';
   private $username = 'root';
   private $password = '';
 

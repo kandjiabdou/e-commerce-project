@@ -45,7 +45,7 @@ class DatabaseUserRepository implements UserRepository
 
   public function createUser($firstName, $lastName, $username, $password): void
   {
-    $request = $this->database->prepare('INSERT INTO user(firstname, lastname, username, password) VALUES (:firstname, :lastname, :username, md5(:password))');
+    $request = $this->database->prepare('INSERT INTO user(firstname, lastname, mode, username, password) VALUES (:firstname, :lastname, 2, :username, md5(:password))');
     $request->execute([
       'firstname' => $firstName,
       'lastname' => $lastName,
