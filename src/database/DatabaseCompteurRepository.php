@@ -1,6 +1,6 @@
 <?php
-require_once __DIR__ . '/CompteurRepository.php';
-require_once __DIR__ . '/../../common/DatabaseClient.php';
+require_once '../src/model/CompteurRepository.php';
+require_once '../src/common/DatabaseClient.php';
 
 class DatabaseCompteurRepository implements CompteurRepository
 {

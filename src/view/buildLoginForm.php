@@ -30,7 +30,7 @@ function buildLoginForm(string $error): string
           </div>
         </div>
         <hr>
-        Vous n'avez pas encore de compte? <a href="/e-commerce-project/src/user/signin.php">inscrivez-vous</a>
+        Vous n'avez pas encore de compte? <a href="/e-commerce-project/src/view/signin.php">inscrivez-vous</a>
       </div>
     </div>
 HTML;

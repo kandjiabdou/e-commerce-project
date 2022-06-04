@@ -46,6 +46,6 @@ class UserLoginController
   }
 
   private function redirectToHomepage(): void {
-    header('Location: /e-commerce-project/src/home/');
+    header('Location: /e-commerce-project/src/');
   }
 }

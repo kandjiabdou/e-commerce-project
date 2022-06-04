@@ -50,7 +50,7 @@ HTML;
     return <<<HTML
       <nav class="navbar navbar-expand-md navbar-dark bg-dark">
         <a class="navbar-brand mr-auto" href="#">Mon super compteur</a>
-        <a class="btn btn-outline-light" href="/e-commerce-project/src/user/logout.php">se déconnecter</a>
+        <a class="btn btn-outline-light" href="/e-commerce-project/src/view/logout.php">se déconnecter</a>
       </nav>
 HTML;
   }

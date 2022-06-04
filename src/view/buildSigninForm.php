@@ -41,7 +41,7 @@ function buildSigninForm($values, string $error): string
           </div>
         </div>
         <hr>
-        Vous avez déjà un compte? <a href="/e-commerce-project/src/user/login.php">connectez-vous</a>
+        Vous avez déjà un compte? <a href="/e-commerce-project/src/view/login.php">connectez-vous</a>
       </div>
     </div>
 HTML;

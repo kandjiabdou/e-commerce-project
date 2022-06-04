@@ -22,6 +22,6 @@ class CounterController
   }
 
   private function redirectToLogin(): void {
-    header('Location: /e-commerce-project/src/user/login.php');
+    header('Location: /e-commerce-project/src/view/login.php');
   }
 }

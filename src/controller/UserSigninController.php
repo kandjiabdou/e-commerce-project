@@ -75,6 +75,6 @@ class UserSigninController
       || (isset($_POST['password']) && $_POST['password'] === '');
   }
   private function redirectToHomepage(): void {
-    header('Location: /e-commerce-project/src/home/');
+    header('Location: /e-commerce-project/src/');
   }
 }
