@@ -1,22 +1,11 @@
 <?php
-
-function buildHomeView($productList): string
-{
-
+function buildHomeView($productList): string{
+    $sectionSlider = buildSectionSliderView();
+    $mainTitle = buildMainTitleView();
+    $productsSlider = buildproductSliderView($productList);
   return <<<HTML
-    <section>
-		<div id="slideWiz" class="slideWiz" style="width: 100%; height: 500px;"></div>
-	</section>
-
-	<section class="main_breadcrumb">
-		<div class="container-fluid">
-			<div class="row">
-				<div class="breadcrumb-content">
-					<h2><a href="products.html">Voir tous les produits</a></h2>
-				</div>
-			</div>
-		</div>
-	</section>
+    $sectionSlider
+    $mainTitle
     <!-- Our products  -->
 	<div id="products" class="products_section">
 		<div class="container-fluid">
@@ -28,127 +17,7 @@ function buildHomeView($productList): string
 			<div class="row">
 				<div id="product" class="owl-carousel owl-theme">
 					<!--1 -->
-					<div class="item">
-						<div class="col-sm-12">
-							<div class="product-thumb">
-								<div class="image wow fadeInDown animated">
-									<a href="single-products.html"><img class="wow fadeInDown animated"
-											src="assets/image/category/product-1.jpg" alt="Kundli Dosha"
-											title="Kundli Dosha" width="100%"></a>
-								</div>
-								<div class="caption">
-									<div class="rate-and-title">
-										<h4 class="wow fadeInDown animated"><a href="single-products.html">Natural
-												Mineral Stone</a></h4>
-										<p class="price wow fadeInDown animated"><span class="price-old">$123.20</span>
-											<span class="price-new">$110.00</span>
-										</p>
-										<button type="button" class="btn wow fadeInDown animated" onclick=""
-											title="Add to Cart"><span><i class="fa fa-shopping-cart"></i> Add to
-												Cart</span></button>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- 2-->
-					<div class="item">
-						<div class="col-sm-12">
-							<div class="product-thumb">
-								<div class="image wow fadeInDown animated">
-									<a href="single-products.html"><img class="wow fadeInDown animated"
-											src="assets/image/category/product-2.jpg" alt="Kundli Dosha"
-											title="Kundli Dosha" width="100%"></a>
-								</div>
-								<div class="caption">
-									<div class="rate-and-title">
-										<h4 class="wow fadeInDown animated"><a href="single-products.html">Natural
-												Mineral Stone</a></h4>
-										<p class="price wow fadeInDown animated"><span class="price-old">$123.20</span>
-											<span class="price-new">$110.00</span>
-										</p>
-										<button type="button" class="btn wow fadeInDown animated" onclick=""
-											title="Add to Cart"><span><i class="fa fa-shopping-cart"></i> Add to
-												Cart</span></button>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- 3-->
-					<div class="item">
-						<div class="col-sm-12">
-							<div class="product-thumb">
-								<div class="image wow fadeInDown animated">
-									<a href="single-products.html"><img class="wow fadeInDown animated"
-											src="assets/image/category/product-2.jpg" alt="Kundli Dosha"
-											title="Kundli Dosha" width="100%"></a>
-								</div>
-								<div class="caption">
-									<div class="rate-and-title">
-										<h4 class="wow fadeInDown animated"><a href="single-products.html">Natural
-												Mineral Stone</a></h4>
-										<p class="price wow fadeInDown animated"><span class="price-old">$123.20</span>
-											<span class="price-new">$110.00</span>
-										</p>
-										<button type="button" class="btn wow fadeInDown animated" onclick=""
-											title="Add to Cart"><span><i class="fa fa-shopping-cart"></i> Add to
-												Cart</span></button>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!--4 -->
-					<div class="item">
-						<div class="col-sm-12">
-							<div class="product-thumb">
-								<div class="image wow fadeInDown animated">
-									<a href="single-products.html"><img class="wow fadeInDown animated"
-											src="assets/image/category/product-2.jpg" alt="Kundli Dosha"
-											title="Kundli Dosha" width="100%"></a>
-								</div>
-								<div class="caption">
-									<div class="rate-and-title">
-										<h4 class="wow fadeInDown animated"><a href="single-products.html">Natural
-												Mineral
-												Stone</a></h4>
-										<p class="price wow fadeInDown animated"><span class="price-old">$123.20</span>
-											<span class="price-new">$110.00</span>
-										</p>
-										<button type="button" class="btn wow fadeInDown animated" onclick=""
-											title="Add to Cart"><span><i class="fa fa-shopping-cart"></i> Add to
-												Cart</span></button>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!--5 -->
-					<div class="item">
-						<div class="col-sm-12">
-							<div class="product-thumb">
-								<div class="image wow fadeInDown animated">
-									<a href="single-products.html"><img class="wow fadeInDown animated"
-											src="assets/image/category/product-2.jpg" alt="Kundli Dosha"
-											title="Kundli Dosha" width="100%"></a>
-								</div>
-								<div class="caption">
-									<div class="rate-and-title">
-										<h4 class="wow fadeInDown animated"><a href="single-products.html">Natural
-												Mineral
-												Stone</a></h4>
-										<p class="price wow fadeInDown animated"><span class="price-old">$123.20</span>
-											<span class="price-new">$110.00</span>
-										</p>
-										<button type="button" class="btn wow fadeInDown animated" onclick=""
-											title="Add to Cart"><span><i class="fa fa-shopping-cart"></i> Add to
-												Cart</span></button>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
+					$productsSlider
 					<!-- products end -->
 				</div>
 			</div>
@@ -157,35 +26,60 @@ function buildHomeView($productList): string
 	</div>
 HTML;
 }
-
-/*
-function buildHomeView($productList): string
-{
-  $render = '';
-  if (empty($productList)) {
-    $render = '<strong>Aucun produit dans cette sous catégorie</strong>';
-  } else {
-    foreach ($productList as $product) {
-        $render .= '<div class="produit_list">
-            <div class="image_produit">
-                <a href="">
-                    <img class="display" src='.$product['cheminimage'].' alt="image produit"/>
-                </a>
-            </div>
-            <div class="content_produit">
-                <a href="">
-                    <span><strong>'.$product['nomProduit'].'</strong></span></a>
-                <hr>
-                <span class="description">'.$product['description'].'</span>
-            </div>
-        </div>';
-    }
-  }
-
+function buildSectionSliderView(): string{
   return <<<HTML
-    <div>
-      $render
-    </div>
+    <section>
+		<div id="slideWiz" class="slideWiz" style="width: 100%; height: 500px;"></div>
+	</section>
 HTML;
 }
-*/
+function buildMainTitleView(): string{
+    return <<<HTML
+      <section class="main_breadcrumb">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="breadcrumb-content">
+                    <h2><a href="products.html">Voir tous les produits</a></h2>
+                </div>
+            </div>
+        </div>
+      </section>
+  HTML;
+}
+function buildproductSliderView($productList): string{
+    $render = '';
+    if (empty($productList)) {
+        $render = '<strong>Aucun produit dans cette sous catégorie</strong>';
+    } else {
+        foreach ($productList as $product) {
+            $newPrice = $product['prix']*0.85;
+            $render .= '<div class="item">
+                <div class="col-sm-12">
+                    <div class="product-thumb">
+                        <div class="image wow fadeInDown animated">
+                            <a href="single-products.html"><img class="wow fadeInDown animated"
+                                    src="'.$product['cheminimage'].'" alt="Kundli Dosha"
+                                    title="Kundli Dosha" width="100%"></a>
+                        </div>
+                        <div class="caption">
+                            <div class="rate-and-title">
+                                <h4 class="wow fadeInDown animated"><a href="single-products.html">'.$product['nomProduit'].'</a></h4>
+                                <p class="price wow fadeInDown animated">
+                                    <span class="price-old">'.$product['prix'].'</span>
+                                    <span class="price-new">'.$newPrice.'</span>
+                                </p>
+                                <button type="button" class="btn wow fadeInDown animated" onclick=""
+                                    title="Add to Cart"><span><i class="fa fa-shopping-cart"></i> Add to
+                                        Cart</span></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>';
+        }
+    }
+
+    return <<<HTML
+        $render
+    HTML;
+}

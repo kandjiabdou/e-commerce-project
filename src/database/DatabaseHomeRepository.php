@@ -10,7 +10,7 @@ class DatabaseHomeRepository implements HomeRepository{
   }
 
   public function get5Products(){
-    $sql = 'select produitID, nomProduit, prix, description, cheminimage FROM produit';
+    $sql = 'select produitID, nomProduit, prix, description, cheminimage FROM produit LIMIT 5';
     $produit = $this->database->query($sql);
     if ($produit->rowCount() >= 1) {
         return $produit->fetchAll();
