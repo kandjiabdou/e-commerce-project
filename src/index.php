@@ -18,8 +18,6 @@ $nom_classe =  $nom_controller.'Controller';
 //On détermine le nom du fichier contenant la définition du contrôleur
 $nom_fichier = 'controller/' .  $nom_classe . '.php';
 
-
-
 //Si le fichier existe
 if (file_exists($nom_fichier)) {
     //On l'inclut et on instancie un objet de cette classe
@@ -29,5 +27,8 @@ if (file_exists($nom_fichier)) {
     $composanthtml = $controller->$action();
     CommonComponents::render($composanthtml);
 } else {
-    exit("Error 404: not found!");
+    include_once 'view/build404View.php';
+    $html404 = build404View();
+    CommonComponents::render($html404, false);
+    exit();
 }

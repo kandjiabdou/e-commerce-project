@@ -29,17 +29,3 @@ function buildProductListView($productList): string
     </div>
 HTML;
 }
-
-/*$render .= '<div class="produit_list">
-        <div class="image_produit">
-            <a href="?action=productCategorie&id= '.$product['produitID'].'">
-                <img class="display" src='.$product['cheminimage'].' alt="image produit"/>
-            </a>
-        </div>
-        <div class="content_produit">
-            <a href="?action=productCategorie&id='.$product['produitID'].'">
-                <span><strong>'.$product['nomProduit'].'</strong></span></a>
-            <hr>
-            <span class="description">'.$product['description'].'</span>
-        </div>
-    </div>';*/

@@ -1,15 +1,15 @@
 <?php
-require_once '../src/model/ProductListRepository.php';
+require_once '../src/model/ProductRepository.php';
 require_once '../src/common/DatabaseClient.php';
 
-class DatabaseProductListRepository implements ProductListRepository{
+class DatabaseProductRepository implements ProductRepository{
   private $database;
 
   public function __construct(){
     $this->database = DatabaseClient::getDatabase();
   }
 
-  public function getAllProduit(){
+  public function getAllProduct(){
     $sql = 'select produitID, nomProduit, prix, description, cheminimage FROM produit';
     $produit = $this->database->query($sql);
     if ($produit->rowCount() >= 1) {

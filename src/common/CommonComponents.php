@@ -57,13 +57,13 @@ class CommonComponents
             <div class="row">
               <div class="header_menu_wrapper">
                 <nav class="navbar navbar-expand-md navbar-light">
-                  <a class="navbar-brand" href="/e-commerce-project/src/index.html"><img src="/e-commerce-project/src/assets/image/logo/logo.png" alt="logo"></a>
+                  <a class="navbar-brand" href="/e-commerce-project/src/index.php"><img src="/e-commerce-project/src/assets/image/logo/logo.png" alt="logo"></a>
                   <div class="collapse navbar-collapse mean-menu" style="display: block;">
                     <ul class="navbar-nav">
                       <li class="nav-item"><a href="/e-commerce-project/src/index.php" class="nav-link active">Home</a></li>
-                      <li class="nav-item"><a href="?controller=product&action=allproduct" class="nav-link">Produits</a></li>
-                      <li class="nav-item"><a href="" class="nav-link">About Us</a></li>
-                      <li class="nav-item"><a href="" class="nav-link">Contact</a></li>
+                      <li class="nav-item"><a href="?controller=Product&action=allProduct" class="nav-link">Produits</a></li>
+                      <li class="nav-item"><a href="?controller=AboutUs" class="nav-link">About Us</a></li>
+                      <li class="nav-item"><a href="?controller=Contact" class="nav-link">Contact</a></li>
                     </ul>
                     <div class="others-option align-items-center">
                       <div class="option-item">
