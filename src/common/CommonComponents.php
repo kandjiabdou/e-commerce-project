@@ -60,8 +60,8 @@ class CommonComponents
                   <a class="navbar-brand" href="/e-commerce-project/src/index.html"><img src="/e-commerce-project/src/assets/image/logo/logo.png" alt="logo"></a>
                   <div class="collapse navbar-collapse mean-menu" style="display: block;">
                     <ul class="navbar-nav">
-                      <li class="nav-item"><a href="/e-commerce-project/src/index.html" class="nav-link active">Home</a></li>
-                      <li class="nav-item"><a href="" class="nav-link">Produits</a></li>
+                      <li class="nav-item"><a href="/e-commerce-project/src/index.php" class="nav-link active">Home</a></li>
+                      <li class="nav-item"><a href="?controller=product&action=allproduct" class="nav-link">Produits</a></li>
                       <li class="nav-item"><a href="" class="nav-link">About Us</a></li>
                       <li class="nav-item"><a href="" class="nav-link">Contact</a></li>
                     </ul>
