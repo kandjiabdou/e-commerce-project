@@ -1,14 +1,20 @@
 <?php
-require_once __DIR__ . '/../view/buildHomeView.php';
+require_once 'database/DatabaseHomeRepository.php';
 
-class HomeController{
+class HomeController extends Controller{
   private $homeRepository;
 
-  public function __construct(HomeRepository $homeRepository){
-    $this->homeRepository = $homeRepository;
+  public function __construct(){
+    parent::__construct();
+    $this->homeRepository = new DatabaseHomeRepository();
   }
 
-  public function viewAction(): string {
-    return buildHomeView($this->homeRepository->get5Products());
+  public function action_home(){
+    $data = $this->homeRepository->get5Products();
+    return $this->generHtml("home", $data);
+  }
+
+  public function action_default(){
+      return $this->action_home();
   }
 }
