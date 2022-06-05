@@ -1405,23 +1405,6 @@ html body .owl-carousel {
     opacity: 1;
     bottom: 2rem;
 }
-#products.products_section .product-thumb .sale {
-    position: absolute;
-    left: 2rem;
-    top: 2rem;
-    min-width: 4rem;
-    color: #ffffff;
-    text-transform: uppercase;
-    font-size: 1.2rem;
-    font-weight: 400;
-    line-height: 2rem;
-    height: 2rem;
-    z-index: 1;
-    text-align: center;
-    letter-spacing: 0;
-    border-radius: 5px;
-	background:#cbb18a;
-}
 #products.products_section .product-thumb .caption button i {
     margin-right:3px;
 }
@@ -1793,10 +1776,6 @@ breadcrumb CSS
 #category_product.category_product p.price  {
     margin: 0 0 0px;
 }
-#category_product.category_product .product-thumb .sale {
-    left: 1rem;
-    top: 1rem;
-}
 /* cart page */
 #cart .table-cart
 {
@@ -2067,24 +2046,6 @@ breadcrumb CSS
 }
 
 /* products page  */
-#products_products .single_product_image .sale
-{
-    position: absolute;
-    left: 35px;
-    top: 20px;
-    min-width: 4rem;
-    color: #ffffff;
-    text-transform: uppercase;
-    font-size: 1.2rem;
-    font-weight: 400;
-    line-height: 2rem;
-    height: 2rem;
-    z-index: 1;
-    text-align: center;
-    letter-spacing: 0;
-    border-radius: 5px;
-    background: #37a4dd;
-}
 #products_products .single_products_left_side .in-stock
 {
     background: transparent;
