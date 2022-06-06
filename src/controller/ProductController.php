@@ -15,11 +15,16 @@ class ProductController extends Controller{
   }
 
   public function action_SingleProduit(){
-    if (isset($_GET['produitID']))
-    {
-        $data = $this->productRepository->getProduitDetails($_GET['produitID']);
+    $data = false;
+    if (isset($_GET["produitID"]) and preg_match("#^[1-9]\d*$#", $_GET["produitID"])) {
+      $data = $this->productRepository->getProduitDetails($_GET['produitID']);
     }
-    return $this->generHtml("SingleProduit", $data);
+    //Si on a bien un produit d'identifiant$_GET["id"]
+    if ($data !== false) {
+      return $this->generHtml("SingleProduit", $data);
+    } else {
+      return $this->action_error("Il n'y a pas de produit avec l'ID donné!!!");
+    }
   }
 
   public function action_default(){
