@@ -11,17 +11,15 @@ abstract class Controller{
     /**
      * Constructeur. Lance l'action correspondante
      */
-    public function __construct()
-    {
+    public function __construct(){
         //On détermine s'il existe dans l'url un paramètre action correspondant à une action du contrôleur
         if (isset($_GET['action']) and method_exists($this, "action_" . $_GET["action"])) {
             //Si c'est le cas, on appelle cette action
-            $this->action = "action_" . $_GET["action"];
+            $this->action = "action_" . $_GET["action"]; // action_allProduct
         } else {
             $this->action = "action_default";
         }
     }
-
 
     /**
      * Affiche la vue
@@ -29,11 +27,11 @@ abstract class Controller{
      * @param array $data tableau contenant les données à passer à la vue
      * @return aucun
      */
-    public function generHtml($vue, $data = []): string{
+    public function generHtml($vue, $data = []): string{ // vue = AllProduct
         //On extrait les données à afficher
         extract($data);
         //On teste si la vue existe
-        $file_name = "view/build" . $vue . 'View.php';
+        $file_name = "view/build" . $vue . 'View.php'; // view/buildAllProductView.php
         if (file_exists($file_name)) {
             //Si oui, on l'affiche
             include $file_name;
@@ -52,6 +50,6 @@ abstract class Controller{
      */
     public function action_error($message = ''){
         $data = ['title' => "Error",'message' => $message];
-        return $this->generHtml("message", $data);
+        return $this->generHtml("Message", $data);
     }
 }

@@ -11,7 +11,7 @@ class ProductController extends Controller{
 
   public function action_allProduct(){
     $data = $this->productRepository->getAllProduct();
-    return $this->generHtml("allProduct", $data);
+    return $this->generHtml("AllProduct", $data);
   }
 
   public function action_default(){

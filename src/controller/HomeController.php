@@ -11,7 +11,7 @@ class HomeController extends Controller{
 
   public function action_home(){
     $data = $this->homeRepository->get5Products();
-    return $this->generHtml("home", $data);
+    return $this->generHtml("Home", $data);
   }
 
   public function action_default(){

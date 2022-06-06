@@ -73,7 +73,7 @@ class CommonComponents
                       </div>
                       <div class="option-item">
                         <div class="login-btn">
-                          <a href=""><i class="fa fa-sign-in"></i></a>
+                          <a href="?controller=Login&action=login"><i class="fa fa-sign-in"></i></a>
                         </div>
                       </div>
                     </div>
