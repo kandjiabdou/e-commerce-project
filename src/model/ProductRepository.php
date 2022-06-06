@@ -4,4 +4,5 @@ interface ProductRepository {
   public function getProduitDetails($id);
   public function getAllProductWithLimit($offset, $nbResultatParPage);
   public function getNbTotalProduct();
+  public function getCategorys();
 }

@@ -6,11 +6,12 @@ function buildAllProductView($data): string
   nb_total_pages : nombre de produit
   active : indice de la page de résultats visualisée
   products : tableau de produit
+  categorys : tableau de gatecories
   listPages : liste des urls des pages
   */
   extract($data);
   $breadcrumb = breadcrumb();
-  $filtre = filtre();
+  $filtre = filtre($categorys);
   $script = script();
   $btnFitre = btnFiltre();
   $trier = trier();
@@ -91,44 +92,40 @@ function pagination($listPages, $active, $max_pages){
   </div>
 HTML;
 }
-function filtre(){
+function filtre($categorys){
+  $htmlCategory = '';
+  foreach($categorys as $category){
+    $htmlCategory.='<li>
+      <input class="filter" data-filter=".check'.$category['categorieID'].'" type="checkbox" id="checkbox'.$category['categorieID'].'">
+      <label class="checkbox-label" for="checkbox'.$category['categorieID'].'">'.$category['nomCategorie'].'</label>
+    </li>';
+  }
   return <<<HTML
-    <form>
-      <div class="cd-filter-block">
-        <h4>Check boxes</h4>
-        <ul class="cd-filter-content cd-filters list">
-          <li>
-            <input class="filter" data-filter=".check1" type="checkbox" id="checkbox1">
-            <label class="checkbox-label" for="checkbox1">Telephne</label>
-          </li>
-          <li>
-            <input class="filter" data-filter=".check2" type="checkbox" id="checkbox2">
-            <label class="checkbox-label" for="checkbox2">Ordinateur</label>
-          </li>
+    <form class="eb-form eb-mailform form-filter" novalidate="novalidate">      <div class="row">
+        <div class="col-sm-12">
+          <h4>Catégories</h4>
+        </div>
+        <ul id="ul-filter">
+          $htmlCategory
         </ul> <!-- cd-filter-content -->
-      </div> <!-- cd-filter-block -->
+        <div class="col-sm-12">
+          <h4>Prix</h4>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-wrap has-error">
+            <input class="form-input form-control" id="checkout-first-name-1" type="number"
+              name="name" data-constraints="@Required" placeholder="Minimum">
+          </div>
+        </div>
 
-      <div class="cd-filter-block">
-        <h4>Prix</h4>
-        <ul class="cd-filter-content cd-filters list">
-          <li><label class="form-label" for="typeNumber">Minimum</label></li>
-          <li>
-            <div class="col-md-3 mt-3 text-center">
-              <div class="form-outline">
-                <input type="number" id="typeNumber" class="form-control active"
-                  value="">
-              </div>
-          </li>
-          <li><label class="form-label" for="typeNumber2">Maximum</label></li>
-          <li>
-            <div class="col-md-3 mt-3 text-center">
-              <div class="form-outline">
-                <input type="number" id="typeNumber2" class="form-control active"
-                  value="">
-              </div>
-          </li>
-        </ul>
+        <div class="col-sm-6">
+          <div class="form-wrap has-error">
+            <input class="form-input form-control" id="checkout-last-name-1" type="number"
+              name="name" data-constraints="@Required" placeholder="Minimum">
+          </div>
+        </div>
       </div>
+
       <button type="button" class="btn wow fadeInDown animated" onclick="" title="Add to Cart"><span><i class="fa fa-check"></i> Appliquer</span></button>
     </form>
 HTML;
@@ -139,7 +136,7 @@ function trier(){
   <div class="sort-by-wrapper">
     <div class="col-md-9 col-xs-3 sort">
       <div class="form-group input-group input-group-sm wow fadeInDown pull-right">
-        <label class="input-group-addon" for="input-sort">Sort By:</label>
+        <label class="input-group-addon" for="input-sort">Trier par:</label>
         <div class="select-wrapper">
           <select id="input-sort" class="form-control">
             <option value="" selected="selected">Default</option>

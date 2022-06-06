@@ -18,7 +18,7 @@ class DatabaseProductRepository implements ProductRepository{
         throw new Exception("Aucun produit ne correspond à l'identifiant");
   }
   public function getProduitDetails($id){
-    $sql = 'select produitID, nomProduit, prix, description, cheminimage FROM produit WHERE produitID = :id';
+    $sql = 'SELECT produitID, nomProduit, prix, description, cheminimage FROM produit WHERE produitID = :id';
     $produit = $this->database->prepare($sql);
     $produit->bindValue(':id', $id, PDO::PARAM_INT);
     $produit->execute();
@@ -48,7 +48,7 @@ class DatabaseProductRepository implements ProductRepository{
    */
   public function getAllProductWithLimit($offset, $nbResultatParPage){
     try {
-      $sql = 'select * FROM produit ORDER BY produitID DESC LIMIT :limit OFFSET :offset';
+      $sql = 'SELECT * FROM produit ORDER BY produitID DESC LIMIT :limit OFFSET :offset';
       $produits = $this->database->prepare($sql);
       $produits->bindValue(':limit', $nbResultatParPage, PDO::PARAM_INT);
       $produits->bindValue(':offset', $offset, PDO::PARAM_INT);
@@ -56,6 +56,21 @@ class DatabaseProductRepository implements ProductRepository{
       return $produits->fetchAll(PDO::FETCH_ASSOC);
     } catch (PDOException $e) {
         die('Echec getAllProductWithLimit, erreur n°' . $e->getCode() . ':' . $e->getMessage());
+    }
+  }
+
+  /**
+   * Retourne la liste des categorie la base de données
+   * @return [int]
+   */
+  public function getCategorys(){
+    try {
+      $sql = 'SELECT * FROM categorie';
+      $req = $this->database->prepare($sql);
+      $req->execute();
+      return $req->fetchAll(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+      die('Echec getCategory, erreur n°' . $e->getCode() . ':' . $e->getMessage());
     }
   }
 }

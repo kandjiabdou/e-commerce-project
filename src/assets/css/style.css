@@ -2612,3 +2612,12 @@ ul.shipping-pro li {
 	max-width: 900px;
 	margin: auto;
 }
+#ul-filter{
+    padding: 10%;
+    list-style: none;
+}
+#filterProduct {
+    background-color: #E7E0D9;
+    padding: 2%;
+    border-radius: 5%;
+}

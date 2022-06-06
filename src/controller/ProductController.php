@@ -47,6 +47,8 @@ class ProductController extends Controller{
         'active' => $start,
         //Récupération les produits de la page $start
         'products'  => $this->productRepository->getAllProductWithLimit($offset, $this->NB_PRODUIT_PAR_PAGE),
+        // La listes des catégorie sur le site
+        'categorys' => $this->productRepository->getCategorys(),
         //Récupération des urls des pages
         'listPages'  => $this->liste_pages($start, $nb_total_pages),
     ];
