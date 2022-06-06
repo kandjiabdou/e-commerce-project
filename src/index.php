@@ -12,7 +12,7 @@ if (isset($_GET['controller']) and in_array($_GET['controller'], $controllers)) 
     $nom_controller = $controller_default;
 }
     
-//On détermine le nom de la classe du contrôleur
+//On détermine le nom de la classe du contrôleur ProductController
 $nom_classe =  $nom_controller.'Controller';
 
 //On détermine le nom du fichier contenant la définition du contrôleur
