@@ -17,4 +17,9 @@ class DatabaseProductRepository implements ProductRepository{
     } else
         throw new Exception("Aucun produit ne correspond à l'identifiant");
   }
+  public function getProduitDetails($id){
+    $sql = 'select produitID, nomProduit, prix, description, cheminimage FROM produit WHERE produitID ='.$id;
+    $produit = $this->database->query($sql);
+    return $produit->fetch();
+   }
 }

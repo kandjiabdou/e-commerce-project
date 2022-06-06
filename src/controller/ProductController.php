@@ -14,6 +14,14 @@ class ProductController extends Controller{
     return $this->generHtml("AllProduct", $data);
   }
 
+  public function action_SingleProduit(){
+    if (isset($_GET['produitID']))
+    {
+        $data = $this->productRepository->getProduitDetails($_GET['produitID']);
+    }
+    return $this->generHtml("SingleProduit", $data);
+  }
+
   public function action_default(){
       return $this->action_allProduct();
   }

@@ -57,7 +57,7 @@ function buildproductSliderView($productList): string{
                 <div class="col-sm-12">
                     <div class="product-thumb">
                         <div class="image wow fadeInDown animated">
-                            <a href="?controller=SingleProduit&action=SingleProduit&produitID='.$product['produitID'].'"><img class="wow fadeInDown animated"
+                            <a href="?controller=Product&action=SingleProduit&produitID='.$product['produitID'].'"><img class="wow fadeInDown animated"
                                     src="'.$product['cheminimage'].'" alt="Kundli Dosha"
                                     title="Kundli Dosha" width="100%"></a>
                         </div>

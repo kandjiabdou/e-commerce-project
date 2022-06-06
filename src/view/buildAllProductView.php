@@ -183,7 +183,7 @@ function allProducts($allProducts){
       $render .= '<div class="col-sm-4">
         <div class="product-thumb">
           <div class="image wow fadeInDown animated">
-            <a href="?controller=Product&action=singleProduc&idProduct='.$product['produitID'].'"><img class="wow fadeInDown animated"
+            <a href="?controller=Product&action=SingleProduit&produitID='.$product['produitID'].'"><img class="wow fadeInDown animated"
                 src="'.$product['cheminimage'].'" alt="'.$product['nomProduit'].'"
                 title="'.$product['nomProduit'].'" width="100%"></a>
           </div>
