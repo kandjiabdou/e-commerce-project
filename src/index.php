@@ -13,18 +13,18 @@ if (isset($_GET['controller']) and in_array($_GET['controller'], $controllers)) 
 }
     
 //On détermine le nom de la classe du contrôleur 
-$nom_classe =  $nom_controller.'Controller'; //ProductController
+$nom_classe =  $nom_controller.'Controller';
 
 //On détermine le nom du fichier contenant la définition du contrôleur
-$nom_fichier = 'controller/' .  $nom_classe . '.php'; // ProductController.php ?
+$nom_fichier = 'controller/' .  $nom_classe . '.php'; 
 
 //Si le fichier existe
 if (file_exists($nom_fichier)) {
     //On l'inclut et on instancie un objet de cette classe
     include_once $nom_fichier;
     $controller = new $nom_classe();
-    $action = $controller->action; // "action_allProduct"
-    $composanthtml = $controller->$action(); // ProductController.action_allProduct()
+    $action = $controller->action;
+    $composanthtml = $controller->$action();
     CommonComponents::render($composanthtml);
 } else {
     include_once 'view/build404View.php';

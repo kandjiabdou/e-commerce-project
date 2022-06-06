@@ -5,7 +5,7 @@ class Produit {
   private $nomProduit;
   private $prix;
   private $description;
-  private $categorie
+  private $categorie;
 
   public function __construct($produitID, $nomProduit,$prix,$description, $categorie){
     $this->produitID = $produitID;
