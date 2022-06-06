@@ -1,25 +1,34 @@
 <?php
 
-function buildAllProductView($productList): string
+function buildAllProductView($data): string
 {
-  $render = '';
+  /* data contient :
+  nb_total_pages : nombre de produit
+  active : indice de la page de résultats visualisée
+  products : tableau de produit
+  listPages : liste des urls des pages
+  */
+  extract($data);
   $breadcrumb = breadcrumb();
   $filtre = filtre();
   $script = script();
   $btnFitre = btnFiltre();
   $trier = trier();
-  $listProducts = allProducts($productList);
-  $pagination = pagination();
+  $listProducts = allProducts($products);
+  $pagination = pagination($listPages, $active, $nb_total_pages);
 
   return <<<HTML
     <!-- breadcrumb -->
     $breadcrumb
     <div id="content" class="products_page">
+      <!-- products -->
       <div id="products" class="products_section">
         <div class="container-fluid">
           <div class="row">
+            <div id="filterProduct" class="col-sm-3 cd-filter">
             <!--Filtre-->
-            $filtre
+              $filtre
+            </div> <!-- cd-filter -->
             <!--script-->
             $script
             <div id="ProductList" class="col-sm-9">
@@ -29,8 +38,8 @@ function buildAllProductView($productList): string
                   $btnFitre
                   <!-- Trier -->
                   $trier
-
-                <div class="clear"></div></div>
+                  <div class="clear"></div>
+                </div>
                 <!-- single product-list -->
                 <!--1 : allProduct-->
                 $listProducts
@@ -53,7 +62,7 @@ function breadcrumb(){
 				<div class="breadcrumb-content">
 					<h2>products</h2>
 					<ul>
-						<li><a href="index.html">Home</a></li>
+						<li><a href="index.php">Home</a></li>
 						<li><a href="">products</a></li>
 					</ul>
 				</div>
@@ -62,23 +71,28 @@ function breadcrumb(){
 	</section>
 HTML;
 }
-function pagination(){
+function pagination($listPages, $active, $max_pages){
+  $render = '';
+  if($active>1){
+    $render.= '<a href="?controller=Product&action=allProduct&start='.($active -1).'" class="prev page-numbers"><i class="fa fa-angle-left"></i></a>';
+  }
+  foreach($listPages as $page){
+    $render.='<a href="?controller=Product&action=allProduct&start='.($page).'" class="page-numbers">';
+    $render.= $page == $active ? '<span class="page-numbers current" aria-current="page">'.($page).'</span>' : $page;
+    $render.='</a>';
+  }
+  if($active < $max_pages){
+    $render.= '<a href="?controller=Product&action=allProduct&start='.($active +1).'" class="next page-numbers"><i class="fa fa-angle-right"></i></a>';
+  }
   return <<<HTML
   <div class="clear"></div>
   <div class="pagination-section text-center wow fadeInDown animated">
-    <a href="#" class="prev page-numbers"><i class="fa fa-angle-left"></i></a>
-    <span class="page-numbers current" aria-current="page">1</span>
-    <a href="#" class="page-numbers">2</a>
-    <a href="#" class="page-numbers">3</a>
-    <a href="#" class="page-numbers">4</a>
-    <a href="#" class="page-numbers">5</a>
-    <a href="#" class="next page-numbers"><i class="fa fa-angle-right"></i></a>
+    $render
   </div>
 HTML;
 }
 function filtre(){
   return <<<HTML
-  <div id="filterProduct" class="col-sm-3 cd-filter">
     <form>
       <div class="cd-filter-block">
         <h4>Check boxes</h4>
@@ -97,28 +111,26 @@ function filtre(){
       <div class="cd-filter-block">
         <h4>Prix</h4>
         <ul class="cd-filter-content cd-filters list">
+          <li><label class="form-label" for="typeNumber">Minimum</label></li>
           <li>
             <div class="col-md-3 mt-3 text-center">
               <div class="form-outline">
                 <input type="number" id="typeNumber" class="form-control active"
                   value="">
-                <label class="form-label" for="typeNumber">Minimum</label>
               </div>
           </li>
+          <li><label class="form-label" for="typeNumber2">Maximum</label></li>
           <li>
             <div class="col-md-3 mt-3 text-center">
               <div class="form-outline">
                 <input type="number" id="typeNumber2" class="form-control active"
                   value="">
-                <label class="form-label" for="typeNumber2">Maximum</label>
               </div>
           </li>
         </ul>
       </div>
-      <button type="button" class="btn wow fadeInDown animated" onclick=""
-        title="Appliquer"></button>
+      <button type="button" class="btn wow fadeInDown animated" onclick="" title="Add to Cart"><span><i class="fa fa-check"></i> Appliquer</span></button>
     </form>
-  </div> <!-- cd-filter -->
 HTML;
 }
 
@@ -131,10 +143,10 @@ function trier(){
         <div class="select-wrapper">
           <select id="input-sort" class="form-control">
             <option value="" selected="selected">Default</option>
-            <option value="">Name (A - Z)</option>
-            <option value="">Name (Z - A)</option>
-            <option value="">Price (Low &gt; High)</option>
-            <option value="">Price (High &gt; Low)</option>
+            <option value="">Nom (A - Z)</option>
+            <option value="">Nom (Z - A)</option>
+            <option value="">Prix - croissant</option>
+            <option value="">Prix - décroissant</option>
           </select>
         </div>
       </div>
@@ -165,8 +177,7 @@ function btnFiltre(){
   <div class="show-wrapper">
     <div class="col-md-3 col-xs-3">
       <div class="form-group input-group input-group-sm wow fadeInDown pull-left">
-        <button type="button" class="btn wow fadeInDown animated"
-          onclick="ShowAndHideFilter()" title="Filtre"></button>
+          <button type="button" class="btn wow fadeInDown animated" onclick="ShowAndHideFilter()" title="Add to Cart"><span><i class="fa fa-filter"></i> Filtre</span></button>
       </div>
     </div>
   </div>
@@ -183,9 +194,9 @@ function allProducts($allProducts){
       $render .= '<div class="col-sm-4">
         <div class="product-thumb">
           <div class="image wow fadeInDown animated">
-            <a href="?controller=Product&action=SingleProduit&produitID='.$product['produitID'].'"><img class="wow fadeInDown animated"
-                src="'.$product['cheminimage'].'" alt="'.$product['nomProduit'].'"
-                title="'.$product['nomProduit'].'" width="100%"></a>
+            <a href="?controller=Product&action=SingleProduit&produitID='.$product['produitID'].'">
+              <img class="wow fadeInDown animated imgProduct" src="'.$product['cheminimage'].'" alt="'.$product['nomProduit'].'" title="'.$product['nomProduit'].'" width="100%">
+            </a>
           </div>
           <div class="caption">
             <div class="rate-and-title">

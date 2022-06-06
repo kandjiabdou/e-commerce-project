@@ -1302,6 +1302,7 @@ html body .owl-carousel {
 #products.products_section .product-thumb .image img 
 {
 	width:100%;
+    height: 16.323vw;
 }
 #products.products_section .product-thumb .caption
 {
@@ -1310,6 +1311,7 @@ html body .owl-carousel {
 #products.products_section .product-thumb .caption h4
 {
     margin-bottom: 8px;
+    height: 7vw;
 }
 #products.products_section .product-thumb .caption .price .price-old {
     color: #797979;

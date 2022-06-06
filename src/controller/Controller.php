@@ -29,7 +29,6 @@ abstract class Controller{
      */
     public function generHtml($vue, $data = []): string{ // vue = AllProduct
         //On extrait les données à afficher
-        extract($data);
         //On teste si la vue existe
         $file_name = "view/build" . $vue . 'View.php'; // view/buildAllProductView.php
         if (file_exists($file_name)) {
