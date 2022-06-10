@@ -13,9 +13,9 @@ abstract class Controller{
      */
     public function __construct(){
         //On détermine s'il existe dans l'url un paramètre action correspondant à une action du contrôleur
-        if (isset($_GET['action']) and method_exists($this, "action_" . $_GET["action"])) {
+        if (isset($_GET['act']) and method_exists($this, "action_" . $_GET["act"])) {
             //Si c'est le cas, on appelle cette action
-            $this->action = "action_" . $_GET["action"]; // action_allProduct
+            $this->action = "action_" . $_GET["act"]; // action_allProduct
         } else {
             $this->action = "action_default";
         }

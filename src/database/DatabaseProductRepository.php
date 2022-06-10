@@ -10,13 +10,14 @@ class DatabaseProductRepository implements ProductRepository{
   }
 
   public function getAllProduct(){
-    $sql = 'select * FROM produit'; // produitID, nomProduit, prix, description, cheminimage
+    $sql = 'SELECT * FROM produit WHERE quantiteProduit>0'; // produitID, nomProduit, prix, description, cheminimage
     $produit = $this->database->query($sql);
     if ($produit->rowCount() >= 1) {
         return $produit->fetchAll();
     } else
         throw new Exception("Aucun produit ne correspond à l'identifiant");
   }
+
   public function getProduitDetails($id){
     $sql = 'SELECT produitID, nomProduit, prix, description, cheminimage FROM produit WHERE produitID = :id';
     $produit = $this->database->prepare($sql);
@@ -29,9 +30,14 @@ class DatabaseProductRepository implements ProductRepository{
    * Retourne le nombre de produit dans la base de données
    * @return [int]
    */
-  public function getNbTotalProduct(){
+  public function getNbTotalProduct($categoryFilter, $minPrice, $maxPrice){
+    
     try {
-      $req =  $this->database->prepare('SELECT COUNT(*) FROM produit');
+      $filter = $this->getFilterSqlString($categoryFilter, $minPrice, $maxPrice);
+      $sql = 'SELECT COUNT(*) FROM produit WHERE'.$filter;
+      $req =  $this->database->prepare($sql);
+      if($minPrice !== false) $req->bindValue(':minPrice', $minPrice, PDO::PARAM_INT);
+      if($maxPrice !== false) $req->bindValue(':maxPrice', $maxPrice, PDO::PARAM_INT);
       $req->execute();
       $tab = $req->fetch(PDO::FETCH_NUM);
       return $tab[0];
@@ -42,20 +48,25 @@ class DatabaseProductRepository implements ProductRepository{
 
   /**
    * Retourne les produits dans la base de données du ($offset+1)ème au ($offset + $limit) ème
+   * Retourne les produits dont la quatité est > 0
    * @param [int] $offset Position de départ
    * @param [int] $limit Nombre de résultats retournés
    * @return [array] Contient la liste des Produits retournée
    */
-  public function getAllProductWithLimit($offset, $nbResultatParPage){
+  public function getAllProductWithLimit($tri, $categoryFilter, $minPrice, $maxPrice, $offset, $nbResultatParPage){
+    $filter = $this->getFilterSqlString($categoryFilter, $minPrice, $maxPrice);
     try {
-      $sql = 'SELECT * FROM produit ORDER BY produitID DESC LIMIT :limit OFFSET :offset';
+      $sql = 'SELECT * FROM produit WHERE'.$filter.' ORDER BY '.$tri.' LIMIT :limit OFFSET :offset';
       $produits = $this->database->prepare($sql);
       $produits->bindValue(':limit', $nbResultatParPage, PDO::PARAM_INT);
       $produits->bindValue(':offset', $offset, PDO::PARAM_INT);
+      if($minPrice !== false) $produits->bindValue(':minPrice', $minPrice, PDO::PARAM_INT);
+      if($maxPrice !== false) $produits->bindValue(':maxPrice', $maxPrice, PDO::PARAM_INT);
       $produits->execute();
       return $produits->fetchAll(PDO::FETCH_ASSOC);
     } catch (PDOException $e) {
-        die('Echec getAllProductWithLimit, erreur n°' . $e->getCode() . ':' . $e->getMessage());
+      
+      die('Echec getAllProductWithLimit, erreur n°' . $e->getCode() . ':' . $e->getMessage());
     }
   }
 
@@ -72,5 +83,13 @@ class DatabaseProductRepository implements ProductRepository{
     } catch (PDOException $e) {
       die('Echec getCategory, erreur n°' . $e->getCode() . ':' . $e->getMessage());
     }
+  }
+
+  public function getFilterSqlString($categoryFilter, $minPrice, $maxPrice) : string{
+    $filter = ' quantiteProduit > 0';
+    if($minPrice !== false) $filter .= ' AND prix > :minPrice';
+    if($maxPrice !== false) $filter .= ' AND prix < :maxPrice';
+    if($categoryFilter !== false) $filter .= ' AND categorieID IN (\''.join("','", $categoryFilter).'\')';
+    return $filter;
   }
 }

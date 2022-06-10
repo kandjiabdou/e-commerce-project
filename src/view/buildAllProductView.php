@@ -11,12 +11,12 @@ function buildAllProductView($data): string
   */
   extract($data);
   $breadcrumb = breadcrumb();
-  $filtre = filtre($categorys);
+  $filtre = filtre($sort, $categorys, $minPrice, $maxPrice, $categoryFilter);
   $script = script();
   $btnFitre = btnFiltre();
-  $trier = trier();
+  $trier = trier($sort, $minPrice, $maxPrice, $categoryFilter);
   $listProducts = allProducts($products);
-  $pagination = pagination($listPages, $active, $nb_total_pages);
+  $pagination = pagination($sort, $listPages, $active, $nb_total_pages, $minPrice, $maxPrice, $categoryFilter);
 
   return <<<HTML
     <!-- breadcrumb -->
@@ -72,19 +72,26 @@ function breadcrumb(){
 	</section>
 HTML;
 }
-function pagination($listPages, $active, $max_pages){
+function pagination($sort, $listPages, $active, $max_pages, $minPrice, $maxPrice, $categoryFilter){
   $render = '';
+  //
+  $filter = 'sort='.$sort;
+  if($minPrice !== false) $filter .= '&min='.$minPrice;
+  if($maxPrice !== false) $filter .= '&max='.$maxPrice;
+  if($categoryFilter !== false){
+    foreach($categoryFilter as $category){
+      $filter .= '&categoryList%5B%5D='.$category;
+    }
+  }
   if($active>1){
-    $render.= '<a href="?controller=Product&action=allProduct&start='.($active -1).'" class="prev page-numbers"><i class="fa fa-angle-left"></i></a>';
+    $render.= '<a href="?'.$filter.'&ctrl=Product&act=allProduct&start='.($active -1).'" class="prev page-numbers"><i class="fa fa-angle-left"></i></a>';
   }
   foreach($listPages as $page){
-    $render.='<a href="?controller=Product&action=allProduct&start='.($page).'" class="page-numbers">';
+    $render.='<a href="?'.$filter.'&ctrl=Product&act=allProduct&start='.($page).'" class="page-numbers">';
     $render.= $page == $active ? '<span class="page-numbers current" aria-current="page">'.($page).'</span>' : $page;
     $render.='</a>';
   }
-  if($active < $max_pages){
-    $render.= '<a href="?controller=Product&action=allProduct&start='.($active +1).'" class="next page-numbers"><i class="fa fa-angle-right"></i></a>';
-  }
+  $render.= '<a href="?'.$filter.'&ctrl=Product&act=allProduct&start='.($active == $max_pages? 1 : $active + 1).'" class="next page-numbers"><i class="fa fa-angle-right"></i></a>';
   return <<<HTML
   <div class="clear"></div>
   <div class="pagination-section text-center wow fadeInDown animated">
@@ -92,16 +99,21 @@ function pagination($listPages, $active, $max_pages){
   </div>
 HTML;
 }
-function filtre($categorys){
+function filtre($sort, $categorys, $minPrice, $maxPrice, $categoryFilter){
   $htmlCategory = '';
   foreach($categorys as $category){
+    $check = ($categoryFilter !== false and in_array($category['categorieID'], $categoryFilter)) ? 'checked' : '';
     $htmlCategory.='<li>
-      <input class="filter" data-filter=".check'.$category['categorieID'].'" type="checkbox" id="checkbox'.$category['categorieID'].'">
-      <label class="checkbox-label" for="checkbox'.$category['categorieID'].'">'.$category['nomCategorie'].'</label>
+      <input class="filter" type="checkbox" name="categoryList[]" value="'.$category['categorieID'].'" '.$check.'>
+      <label class="checkbox-label">'.$category['nomCategorie'].'</label>
     </li>';
   }
+  $minPrice = $minPrice !== false ? 'value ="'.$minPrice.'" ' : '';
+  $maxPrice = $maxPrice !== false ? 'value ="'.$maxPrice.'" ' : '';
+  $htmlSort = '<input type="hidden" name="sort" value="'.$sort.'">';
   return <<<HTML
-    <form class="eb-form eb-mailform form-filter" novalidate="novalidate">      <div class="row">
+    <form action="" method="get">
+      <div class="row">
         <div class="col-sm-12">
           <h4>Catégories</h4>
         </div>
@@ -113,38 +125,51 @@ function filtre($categorys){
         </div>
         <div class="col-sm-6">
           <div class="form-wrap has-error">
-            <input class="form-input form-control" id="checkout-first-name-1" type="number"
-              name="name" data-constraints="@Required" placeholder="Minimum">
+            <input class="form-input form-control" type="number" name="min" placeholder="Minimum" $minPrice>
           </div>
         </div>
-
         <div class="col-sm-6">
           <div class="form-wrap has-error">
-            <input class="form-input form-control" id="checkout-last-name-1" type="number"
-              name="name" data-constraints="@Required" placeholder="Minimum">
+            <input class="form-input form-control" type="number" name="max" placeholder="Maximum" $maxPrice>
           </div>
         </div>
       </div>
-
-      <button type="button" class="btn wow fadeInDown animated" onclick="" title="Add to Cart"><span><i class="fa fa-check"></i> Appliquer</span></button>
+      <div><span><i class="fa fa-check"></i><input type="submit" value="Appliquer"/></span></div>
+      <input type="hidden" name="ctrl" value="Product">
+      <input type="hidden" name="act" value="allProduct">
+      $htmlSort
     </form>
 HTML;
 }
 
-function trier(){
+function trier( $sort, $minPrice, $maxPrice, $categoryFilter){
+  $filter='';
+  if($minPrice !== false) $filter .= '<input type="hidden" name="min" value="'.$minPrice.'">';
+  if($maxPrice !== false) $filter .= '<input type="hidden" name="max" value="'.$maxPrice.'">';
+  if($categoryFilter !== false){
+    foreach($categoryFilter as $category){
+      $filter .= '<input type="hidden" name="categoryList[]" value="'.$category.'">';
+    }
+  }
+  $optionList = '';
+  $listSort = ["Default", "Nom (A - Z)", "Nom (Z - A)", "Prix - croissant", "Prix - décroissant"];
+  for($i=0; $i<5; $i++){
+    $optionList .='<option value="'.$i.'" '.($i == $sort ? 'selected="selected"' : '').' >'.$listSort[$i].'</option>';
+  }
   return <<<HTML
   <div class="sort-by-wrapper">
     <div class="col-md-9 col-xs-3 sort">
       <div class="form-group input-group input-group-sm wow fadeInDown pull-right">
         <label class="input-group-addon" for="input-sort">Trier par:</label>
         <div class="select-wrapper">
-          <select id="input-sort" class="form-control">
-            <option value="" selected="selected">Default</option>
-            <option value="">Nom (A - Z)</option>
-            <option value="">Nom (Z - A)</option>
-            <option value="">Prix - croissant</option>
-            <option value="">Prix - décroissant</option>
-          </select>
+          <form action="" method="get">
+            <select name="sort" class="form-control" onchange="this.form.submit()">
+              $optionList
+            </select>
+            <input type="hidden" name="ctrl" value="Product">
+            <input type="hidden" name="act" value="allProduct">
+            $filter
+          </form>
         </div>
       </div>
     </div>
@@ -187,11 +212,11 @@ function allProducts($allProducts){
     $render = '<strong>Aucun produit dans cette sous catégorie</strong>';
   } else {
     foreach ($allProducts as $product) {
-      $newPrice = $product['prix']*0.85;
+      $newPrice = $product['prix']*1.15;
       $render .= '<div class="col-sm-4">
         <div class="product-thumb">
           <div class="image wow fadeInDown animated">
-            <a href="?controller=Product&action=SingleProduit&produitID='.$product['produitID'].'">
+            <a href="?ctrl=Product&act=SingleProduit&produitID='.$product['produitID'].'">
               <img class="wow fadeInDown animated imgProduct" src="'.$product['cheminimage'].'" alt="'.$product['nomProduit'].'" title="'.$product['nomProduit'].'" width="100%">
             </a>
           </div>
@@ -200,8 +225,8 @@ function allProducts($allProducts){
               <h4 class="wow fadeInDown animated"><a href="">'.$product['nomProduit'].'</a>
               </h4>
               <p class="price wow fadeInDown animated"><span
-                  class="price-old">'.$product['prix'].'</span> <span
-                  class="price-new">'.$newPrice.'</span></p>
+                  class="price-old">'.$newPrice.'</span> <span
+                  class="price-new">'.$product['prix'].'</span></p>
               <button type="button" class="btn wow fadeInDown animated" onclick=""
                 title="Add to Cart"><span><i class="fa fa-shopping-cart"></i> Add to
                   Cart</span></button>

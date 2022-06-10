@@ -6,8 +6,8 @@ $controllers = ["Home","Product", "Login", "Register","SingleProduit"]; //Liste 
 $controller_default = "Home"; //Nom du contrôleur par défaut
 
 //On teste si le paramètre controller existe et correspond à un contrôleur de la liste $controllers
-if (isset($_GET['controller']) and in_array($_GET['controller'], $controllers)) {
-    $nom_controller = $_GET['controller'];
+if (isset($_GET['ctrl']) and in_array($_GET['ctrl'], $controllers)) {
+    $nom_controller = $_GET['ctrl'];
 } else {
     $nom_controller = $controller_default;
 }

@@ -28,9 +28,30 @@ class ProductController extends Controller{
     if (isset($_GET["start"]) and preg_match("#^\d+$#", $_GET["start"]) and $_GET["start"] > 0) {
         $start = $_GET["start"];
     }
-            
+    
+    $categoryFilter = false; 
+    if(isset($_GET["categoryList"])){
+      $categoryFilter = $_GET["categoryList"]; 
+    }
+    $minPrice = false;
+    $maxPrice = false;
+    if(isset($_GET["min"]) and preg_match("#^\d+$#", $_GET["min"]) and $_GET["min"] > 0){
+      $minPrice = $_GET["min"]; 
+    }
+    if(isset($_GET["max"]) and preg_match("#^\d+$#", $_GET["max"]) and $_GET["max"] > 0){
+      $maxPrice = $_GET["max"]; 
+    }
+
+    $tri = "nomProduit ASC";
+    $tris = ["nomProduit ASC","nomProduit DESC", "prix ASC", "prix DESC"];
+    $sort = 0;
+    if(isset($_GET["sort"]) and $_GET["sort"]> 0 and $_GET["sort"]<5){
+      $tri = $tris[$_GET["sort"]-1];
+      $sort = $_GET["sort"];
+    } 
+
     //Récupération du nombre total de produit
-    $nbProducts = $this->productRepository->getNbTotalProduct();
+    $nbProducts = $this->productRepository->getNbTotalProduct($categoryFilter, $minPrice, $maxPrice);
     
     $nb_total_pages = ceil($nbProducts / $this->NB_PRODUIT_PAR_PAGE);
     if ($nb_total_pages < $start) {
@@ -46,9 +67,17 @@ class ProductController extends Controller{
         //indice de la page de résultats visualisée
         'active' => $start,
         //Récupération les produits de la page $start
-        'products'  => $this->productRepository->getAllProductWithLimit($offset, $this->NB_PRODUIT_PAR_PAGE),
+        'products'  => $this->productRepository->getAllProductWithLimit($tri, $categoryFilter, $minPrice, $maxPrice, $offset, $this->NB_PRODUIT_PAR_PAGE),
         // La listes des catégorie sur le site
         'categorys' => $this->productRepository->getCategorys(),
+        // La listes des catégorie sur le filtre
+        'categoryFilter' => $categoryFilter,
+        // le prix min à afficher
+        'minPrice' => $minPrice,
+        // le prix max à afficher
+        'maxPrice' => $maxPrice,
+        // trier par ordre
+        'sort' => $sort,
         //Récupération des urls des pages
         'listPages'  => $this->liste_pages($start, $nb_total_pages),
     ];

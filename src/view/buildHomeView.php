@@ -39,7 +39,7 @@ function buildMainTitleView(): string{
         <div class="container-fluid">
             <div class="row">
                 <div class="breadcrumb-content">
-                    <h2><a href="?controller=Product&action=AllProduct">Voir tous les produits</a></h2>
+                    <h2><a href="?ctrl=Product&act=AllProduct">Voir tous les produits</a></h2>
                 </div>
             </div>
         </div>
@@ -57,7 +57,7 @@ function buildproductSliderView($productList): string{
                 <div class="col-sm-12">
                     <div class="product-thumb">
                         <div class="image wow fadeInDown animated">
-                            <a href="?controller=Product&action=SingleProduit&produitID='.$product['produitID'].'"><img class="wow fadeInDown animated"
+                            <a href="?ctrl=Product&act=SingleProduit&produitID='.$product['produitID'].'"><img class="wow fadeInDown animated"
                                     src="'.$product['cheminimage'].'" alt="Kundli Dosha"
                                     title="Kundli Dosha" width="100%"></a>
                         </div>

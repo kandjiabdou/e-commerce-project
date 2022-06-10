@@ -61,9 +61,9 @@ class CommonComponents
                   <div class="collapse navbar-collapse mean-menu" style="display: block;">
                     <ul class="navbar-nav">
                       <li class="nav-item"><a href="/e-commerce-project/src/index.php" class="nav-link active">Home</a></li>
-                      <li class="nav-item"><a href="?controller=Product&action=allProduct" class="nav-link">Produits</a></li>
-                      <li class="nav-item"><a href="?controller=AboutUs" class="nav-link">About Us</a></li>
-                      <li class="nav-item"><a href="?controller=Contact" class="nav-link">Contact</a></li>
+                      <li class="nav-item"><a href="?ctrl=Product&act=allProduct" class="nav-link">Produits</a></li>
+                      <li class="nav-item"><a href="?ctrl=AboutUs" class="nav-link">About Us</a></li>
+                      <li class="nav-item"><a href="?ctrl=Contact" class="nav-link">Contact</a></li>
                     </ul>
                     <div class="others-option align-items-center">
                       <div class="option-item">
@@ -73,7 +73,7 @@ class CommonComponents
                       </div>
                       <div class="option-item">
                         <div class="login-btn">
-                          <a href="?controller=Login&action=login"><i class="fa fa-sign-in"></i></a>
+                          <a href="?ctrl=Login&act=login"><i class="fa fa-sign-in"></i></a>
                         </div>
                       </div>
                     </div>
