@@ -1,6 +1,5 @@
 <?php
 
-
 abstract class Controller{
     /**
      * Action par défaut du contrôleur (à définir dans les classes filles)

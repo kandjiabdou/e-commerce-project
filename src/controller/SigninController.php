@@ -1,6 +1,6 @@
 <?php
 require_once 'common/AuthenticationService.php';
-require_once 'database/DatabaseUserRepository.php';
+require_once 'model/UserModel.php';
 
 class SigninController extends Controller{
   private $authenticationService;
@@ -9,7 +9,7 @@ class SigninController extends Controller{
   public function __construct(){
     parent::__construct();
     $this->authenticationService = new AuthenticationService();
-    $this->userRepository = new DatabaseUserRepository();
+    $this->userRepository = new UserModel();
     $this->navBar = false;
   }
 

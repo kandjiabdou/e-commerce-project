@@ -1,5 +1,5 @@
 <?php
-require_once 'database/DatabaseProductRepository.php';
+require_once 'model/ProductModel.php';
 
 class ProductController extends Controller{
   private $productRepository;
@@ -7,7 +7,7 @@ class ProductController extends Controller{
 
   public function __construct(){
     parent::__construct();
-    $this->productRepository = new DatabaseProductRepository();
+    $this->productRepository = new ProductModel();
   }
 
   public function action_SingleProduit(){

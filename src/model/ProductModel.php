@@ -1,10 +1,8 @@
 <?php
-require_once '../src/model/ProductRepository.php';
 require_once '../src/common/DatabaseClient.php';
 
-class DatabaseProductRepository implements ProductRepository{
+class ProductModel{
   private $database;
-
   public function __construct(){
     $this->database = DatabaseClient::getDatabase();
   }

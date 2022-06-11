@@ -1,12 +1,12 @@
 <?php
-require_once 'database/DatabaseHomeRepository.php';
+require_once 'model/HomeModel.php';
 
 class HomeController extends Controller{
   private $homeRepository;
 
   public function __construct(){
     parent::__construct();
-    $this->homeRepository = new DatabaseHomeRepository();
+    $this->homeRepository = new HomeModel();
   }
 
   public function action_home(){

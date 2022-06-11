@@ -1,8 +1,7 @@
 <?php
-require_once '../src/model/UserRepository.php';
 require_once '../src/common/DatabaseClient.php';
 
-class DatabaseUserRepository implements UserRepository{
+class UserModel{
   private $database;
   public function __construct()
   {

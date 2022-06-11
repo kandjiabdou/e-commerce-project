@@ -48,7 +48,6 @@ function buildAllProductView($data): string
                 $pagination
               </div>
             </div>
-
           </div>
         </div>
       </div>

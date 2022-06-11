@@ -1,8 +1,7 @@
 <?php
-require_once '../src/model/HomeRepository.php';
 require_once '../src/common/DatabaseClient.php';
 
-class DatabaseHomeRepository implements HomeRepository{
+class HomeModel{
   private $database;
 
   public function __construct(){
