@@ -3,7 +3,7 @@ require_once 'database/DatabaseProductRepository.php';
 
 class ProductController extends Controller{
   private $productRepository;
-  private int $NB_PRODUIT_PAR_PAGE = 10;
+  private $NB_PRODUIT_PAR_PAGE = 10;
 
   public function __construct(){
     parent::__construct();
@@ -55,7 +55,7 @@ class ProductController extends Controller{
     
     $nb_total_pages = ceil($nbProducts / $this->NB_PRODUIT_PAR_PAGE);
     if ($nb_total_pages < $start) {
-        $this->action_error("The page does not exist!");
+      $start = 1;
     }
 
     //Détermination du premier résultat à récupérer dans la base de données
