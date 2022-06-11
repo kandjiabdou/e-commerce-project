@@ -1,13 +1,9 @@
 <?php
-require_once 'common/DatabaseClient.php';
-require_once 'model/UserRepository.php';
-require_once 'model/UserBuilder.php';
-require_once 'model/User.php';
+require_once '../src/model/UserRepository.php';
+require_once '../src/common/DatabaseClient.php';
 
-class DatabaseUserRepository implements UserRepository
-{
+class DatabaseUserRepository implements UserRepository{
   private $database;
-
   public function __construct()
   {
     $this->database = DatabaseClient::getDatabase();
@@ -24,27 +20,16 @@ class DatabaseUserRepository implements UserRepository
     return $request->fetch(PDO::FETCH_OBJ)->numberOfUsers > 0;
   }
 
-  public function getUserByUsername(string $username): ?User
-  {
+  public function isUserNameExist(string $username):bool{
     $request = $this->database->prepare('SELECT firstname, lastname, username FROM user WHERE username = :username');
     $request->execute(['username' => $username]);
     $user = $request->fetch(PDO::FETCH_OBJ);
-
-    if (!$user) {
-      return null;
-    }
-
-    $userBuilder = new UserBuilder();
-    return $userBuilder
-      ->withFirstName($user->firstname)
-      ->withLastName($user->lastname)
-      ->withUsername($user->username)
-      ->build();
+    return ($user !== false);
   }
 
   public function createUser($firstName, $lastName, $username, $password): void
   {
-    $request = $this->database->prepare('INSERT INTO user(firstname, lastname, mode, username, password) VALUES (:firstname, :lastname, 2, :username, md5(:password))');
+    $request = $this->database->prepare('INSERT INTO user(firstname, lastname, role, username, password) VALUES (:firstname, :lastname, 2, :username, md5(:password))');
     $request->execute([
       'firstname' => $firstName,
       'lastname' => $lastName,

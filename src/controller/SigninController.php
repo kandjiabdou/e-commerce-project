@@ -37,7 +37,7 @@ class SigninController extends Controller{
     }
      
     if ($this->isSigninFormFilledAndValid()) {
-      if (is_null($this->userRepository->getUserByUsername($username))) {
+      if (!$this->userRepository->isUserNameExist($username)) {
         $this->userRepository->createUser($firstName, $lastName, $username, $password);
         $this->authenticationService->connectUser();
         $this->redirectToHomepage();
