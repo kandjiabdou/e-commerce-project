@@ -22,12 +22,12 @@ $(document).ready(function () {
                     main: "assets/image/silder/slider-2.jpg",
                     cover: "assets/image/silder/slider-1.jpg"
                 },
-                title: 'Change Your Look',
+                title: 'Decouvrez les nouveaux produits',
                 desc: "If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. or randomised words which don't look even slightly believable.",
                 descLength: 220,
                 button: {
-                    text: 'Shop Now',
-                    url: '#',
+                    text: 'Acheter maintenant',
+                    url: 'index.php?ctrl=Product&act=allProduct',
                     class: 'btn btn-medium btn-primary'
                 }
             },
@@ -36,11 +36,11 @@ $(document).ready(function () {
                     main: "assets/image/silder/slider-6.jpg",
                     cover: "assets/image/silder/slider-2.jpg"
                 },
-                title: 'Best Brand Shoes',
+                title: 'Meilleur marque',
                 desc: "If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. or randomised words which don't look even slightly believable.",
                 button: {
-                    text: 'Shop Now',
-                    url: '#',
+                    text: 'Acheter maintenant',
+                    url: 'index.php?ctrl=Product&act=allProduct',
                     class: 'btn btn-medium btn-primary'
                 }
             },
@@ -49,12 +49,12 @@ $(document).ready(function () {
                     main: "assets/image/silder/slider-1.jpg",
                     cover: "assets/image/silder/slider-3.jpg"
                 },
-                title: 'Change Your Life',
+                title: 'Qualité - Prix',
                 desc: "If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. or randomised words which don't look even slightly believable.",
                 descLength: 190,
                 button: {
-                    text: 'Shop Now',
-                    url: '#',
+                    text: 'Acheter maintenant',
+                    url: 'index.php?ctrl=Product&act=allProduct',
                     class: 'btn btn-medium btn-primary'
                 }
             },
@@ -63,11 +63,11 @@ $(document).ready(function () {
                     main: "assets/image/silder/slider-2.jpg",
                     cover: "assets/image/silder/slider-6.jpg"
                 },
-                title: 'New Style Fashion ',
+                title: 'Changez d\'idée',
                 desc: "If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. or randomised words which don't look even slightly believable.",
                 button: {
-                    text: 'Shop Now',
-                    url: false,
+                    text: 'Acheter maintenant',
+                    url: 'index.php?ctrl=Product&act=allProduct',
                     class: 'btn btn-medium btn-primary'
                 }
             }

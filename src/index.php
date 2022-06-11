@@ -2,7 +2,7 @@
 require_once "controller/Controller.php"; //Inclusion de la classe Controller
 require_once 'common/CommonComponents.php';
 
-$controllers = ["Home","Product", "Login", "Register","SingleProduit"]; //Liste des contrôleurs
+$controllers = ["Home","Product", "Login", "Signin","SingleProduit"]; //Liste des contrôleurs
 $controller_default = "Home"; //Nom du contrôleur par défaut
 
 //On teste si le paramètre controller existe et correspond à un contrôleur de la liste $controllers
@@ -24,8 +24,9 @@ if (file_exists($nom_fichier)) {
     include_once $nom_fichier;
     $controller = new $nom_classe();
     $action = $controller->action;
+    $navBar = $controller->navBar;
     $composanthtml = $controller->$action();
-    CommonComponents::render($composanthtml);
+    CommonComponents::render($composanthtml, $navBar);
 } else {
     include_once 'view/build404View.php';
     $html404 = build404View();

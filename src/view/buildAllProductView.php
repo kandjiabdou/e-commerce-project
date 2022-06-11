@@ -222,7 +222,7 @@ function allProducts($allProducts){
           </div>
           <div class="caption">
             <div class="rate-and-title">
-              <h4 class="wow fadeInDown animated"><a href="">'.$product['nomProduit'].'</a>
+              <h4 class="wow fadeInDown animated"><a href="?ctrl=Product&act=SingleProduit&produitID='.$product['produitID'].'">'.$product['nomProduit'].'</a>
               </h4>
               <p class="price wow fadeInDown animated"><span
                   class="price-old">'.$newPrice.'</span> <span

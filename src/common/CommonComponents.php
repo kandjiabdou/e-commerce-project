@@ -1,12 +1,12 @@
 <?php
-
+require_once 'common/AuthenticationService.php';
 class CommonComponents
 {
-  public static function render(string $component, $withNavbar = true)
+  public static function render(string $component, $withNavbar = true, $connected = false)
   {
     $head = self::htmlHeadComponent();
     $navbar = $withNavbar ? self::navbar() : '';
-    $footer = self::htmlFooterComponent();
+    $footer = $withNavbar ? self::htmlFooterComponent() : '';
     $footerCopyright = self::footerCopyright();
     $scripts = self::scripts();
 
@@ -20,10 +20,11 @@ class CommonComponents
           <header class="header-area">
             $navbar
           </header>
+          
           $component
-          <footer id="footer" class="footer">
-            $footer
-          </footer>
+          
+          $footer
+          
           $footerCopyright
           $scripts
         </body>
@@ -50,6 +51,7 @@ class CommonComponents
 
   private static function navbar(): string
   {
+    $navLog = (new AuthenticationService())->isUserConnected() ? '<a href="?ctrl=Login&act=logout" title="se déconnecter"><i class="fa fa-sign-out"> Deconnexion</i></a>' : '<a href="?ctrl=Login" title="se connecter"><i class="fa fa-sign-in"> Connexion</i></a>' ;
     return <<<HTML
       <div class="navbar-area">
         <div class="fashion-nav">
@@ -73,7 +75,7 @@ class CommonComponents
                       </div>
                       <div class="option-item">
                         <div class="login-btn">
-                          <a href="?ctrl=Login&act=login"><i class="fa fa-sign-in"></i></a>
+                          $navLog
                         </div>
                       </div>
                     </div>
@@ -90,62 +92,64 @@ HTML;
   private static function htmlFooterComponent(): string
   {
     return <<<HTML
-      <div class="container-fluid">
-        <div class="row">
-          <div class="row footer_matter">
-            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-              <div class="footer_list_wrapper">
-                <h2 class="wow fadeInDown animated">Contacts</h2>
-                <ul class="footer_list">
-                  <li><i class="fa fa-map-marker"></i> 93430 Villetaneuse</li>
-                  <li><i class="fa fa-phone"></i> Phone. +33 7 00 00 00</li>
-                  <li><i class="fa fa-envelope"></i> Email: company@Example.com</li>
-                </ul>
+      <footer id="footer" class="footer">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="row footer_matter">
+              <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                <div class="footer_list_wrapper">
+                  <h2 class="wow fadeInDown animated">Contacts</h2>
+                  <ul class="footer_list">
+                    <li><i class="fa fa-map-marker"></i> 93430 Villetaneuse</li>
+                    <li><i class="fa fa-phone"></i> Phone. +33 7 00 00 00</li>
+                    <li><i class="fa fa-envelope"></i> Email: company@Example.com</li>
+                  </ul>
+                </div>
+                <div class="footer_logo_wrapper">
+                  <ul>
+                    <li class="wow fadeInDown animated"><a href="#"><i class="fa fa-facebook"></i></a></li>
+                    <li class="wow fadeInDown animated"><a href="#"><i class="fa fa-twitter"></i></a></li>
+                    <li class="wow fadeInDown animated"><a href="#"><i class="fa fa-youtube-play"></i></a></li>
+                    <li class="wow fadeInDown animated"><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                  </ul>
+                </div>
               </div>
-              <div class="footer_logo_wrapper">
-                <ul>
-                  <li class="wow fadeInDown animated"><a href="#"><i class="fa fa-facebook"></i></a></li>
-                  <li class="wow fadeInDown animated"><a href="#"><i class="fa fa-twitter"></i></a></li>
-                  <li class="wow fadeInDown animated"><a href="#"><i class="fa fa-youtube-play"></i></a></li>
-                  <li class="wow fadeInDown animated"><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                </ul>
+              <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                <div class="footer_list_wrapper">
+                  <h2 class="wow fadeInDown animated">Menu</h2>
+                  <ul class="footer_list">
+                  <li class="wow fadeInDown animated"><a href=""><i class="fa fa-angle-right" aria-hidden="true"></i> About Us</a></li>
+                  <li class="wow fadeInDown animated"><a href=""><i class="fa fa-angle-right" aria-hidden="true"></i> Products List</a></li>
+                  <li class="wow fadeInDown animated"><a href=""><i class="fa fa-angle-right" aria-hidden="true"></i> Panier</a></li>
+                  <li class="wow fadeInDown animated"><a href=""><i class="fa fa-angle-right" aria-hidden="true"></i> Contact</a></li>
+                  </ul>
+                </div>
               </div>
-            </div>
-            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-              <div class="footer_list_wrapper">
-                <h2 class="wow fadeInDown animated">Menu</h2>
-                <ul class="footer_list">
-                <li class="wow fadeInDown animated"><a href=""><i class="fa fa-angle-right" aria-hidden="true"></i> About Us</a></li>
-                <li class="wow fadeInDown animated"><a href=""><i class="fa fa-angle-right" aria-hidden="true"></i> Products List</a></li>
-                <li class="wow fadeInDown animated"><a href=""><i class="fa fa-angle-right" aria-hidden="true"></i> Panier</a></li>
-                <li class="wow fadeInDown animated"><a href=""><i class="fa fa-angle-right" aria-hidden="true"></i> Contact</a></li>
-                </ul>
+              <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                <div class="footer_list_wrapper">
+                  <h2>Articles</h2>
+                  <ul class="footer_list">
+                    <li class="wow fadeInDown animated"><a href=""><i class="fa fa-angle-right" aria-hidden="true"></i>telephon</a> </li>
+                    <li class="wow fadeInDown animated"><a href=""><i class="fa fa-angle-right" aria-hidden="true"></i>ordinateur</a> </li>
+                    <li class="wow fadeInDown animated"><a href=""><i class="fa fa-angle-right" aria-hidden="true"></i>camera</a> </li>
+                    <li class="wow fadeInDown animated"><a href=""><i class="fa fa-angle-right" aria-hidden="true"></i>objet connecté</a> </li>
+                  </ul>
+                </div>
               </div>
-            </div>
-            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-              <div class="footer_list_wrapper">
-                <h2>Articles</h2>
-                <ul class="footer_list">
-                  <li class="wow fadeInDown animated"><a href=""><i class="fa fa-angle-right" aria-hidden="true"></i>telephon</a> </li>
-                  <li class="wow fadeInDown animated"><a href=""><i class="fa fa-angle-right" aria-hidden="true"></i>ordinateur</a> </li>
-                  <li class="wow fadeInDown animated"><a href=""><i class="fa fa-angle-right" aria-hidden="true"></i>camera</a> </li>
-                  <li class="wow fadeInDown animated"><a href=""><i class="fa fa-angle-right" aria-hidden="true"></i>objet connecté</a> </li>
-                </ul>
-              </div>
-            </div>
-            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-              <div class="download_wrapper">
-                <h2 class="wow fadeInDown animated">Application</h2>
-                <p class="wow fadeInDown animated">Télécharger nos applications</p>
-                <div class="download_btn_wrapper">
-                  <a href="#"><img src="assets/image/App-Store.png" class="img-responsive wow fadeInDown animated" alt="App_Store_img"></a>
-                  <a href="#"><img src="assets/image/Google-Play.png" class="img-responsive wow fadeInDown animated" alt="Google_Play_img"></a>
+              <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                <div class="download_wrapper">
+                  <h2 class="wow fadeInDown animated">Application</h2>
+                  <p class="wow fadeInDown animated">Télécharger nos applications</p>
+                  <div class="download_btn_wrapper">
+                    <a href="#"><img src="assets/image/App-Store.png" class="img-responsive wow fadeInDown animated" alt="App_Store_img"></a>
+                    <a href="#"><img src="assets/image/Google-Play.png" class="img-responsive wow fadeInDown animated" alt="Google_Play_img"></a>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </footer>
     HTML;
   }
 
@@ -167,7 +171,7 @@ HTML;
     return <<<HTML
       <div class="footer_copyright">
         <div class="container-fluid">
-          <p class="wow fadeInDown animated">© Copyright 2022 by Barguekan. All right Reserved - Design By Barry, Gueye, Kandji</p>
+          <p class="wow fadeInDown animated">© Copyright 2022 by KANDJI-GUEYE-BARRY. All right Reserved</p>
         </div>
       </div>
     HTML;

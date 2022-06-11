@@ -1,18 +1,19 @@
 <?php
-require_once __DIR__ . '/../view/buildSigninForm.php';
+require_once 'common/AuthenticationService.php';
+require_once 'database/DatabaseUserRepository.php';
 
-class UserSigninController
-{
+class SigninController extends Controller{
   private $authenticationService;
   private $userRepository;
 
-  public function __construct(AuthenticationService $authenticationService, UserRepository $userRepository)
-  {
-    $this->authenticationService = $authenticationService;
-    $this->userRepository = $userRepository;
+  public function __construct(){
+    parent::__construct();
+    $this->authenticationService = new AuthenticationService();
+    $this->userRepository = new DatabaseUserRepository();
+    $this->navBar = false;
   }
 
-  public function signinAction(): string {
+  public function action_signin() {
     $error = '';
     $values = [
       'firstName' => '',
@@ -52,7 +53,11 @@ class UserSigninController
       $values['username'] = $username;
       $error = 'Veuillez remplir tous les champs';
     }
-    return buildSigninForm($values, $error);
+    $data = [ "values" => $values, "error" => $error];
+    return $this->generHtml('Signin', $data);
+  }
+  public function action_default(){
+    return $this->action_signin();
   }
 
   private function isSigninFormFilledAndValid(): bool
@@ -76,5 +81,6 @@ class UserSigninController
   }
   private function redirectToHomepage(): void {
     header('Location: /e-commerce-project/src/');
+    exit();
   }
 }

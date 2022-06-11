@@ -1,8 +1,8 @@
 <?php
-require_once '../common/DatabaseClient.php';
-require_once '../model/UserRepository.php';
-require_once '../model/UserBuilder.php';
-require_once '../model/User.php';
+require_once 'common/DatabaseClient.php';
+require_once 'model/UserRepository.php';
+require_once 'model/UserBuilder.php';
+require_once 'model/User.php';
 
 class DatabaseUserRepository implements UserRepository
 {

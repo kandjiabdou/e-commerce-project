@@ -6,6 +6,7 @@ abstract class Controller{
      * Action par défaut du contrôleur (à définir dans les classes filles)
      */
     public $action;
+    public $navBar;
     abstract public function action_default();
 
     /**
@@ -19,6 +20,7 @@ abstract class Controller{
         } else {
             $this->action = "action_default";
         }
+        $this->navBar = true;
     }
 
     /**
@@ -51,4 +53,11 @@ abstract class Controller{
         $data = ['title' => "Error",'message' => $message];
         return $this->generHtml("Message", $data);
     }
+
+    /*public function woocommerce_ajax_add_to_cart_js() {
+        if (function_exists('is_product') && is_product()) {
+            wp_enqueue_script('woocommerce-ajax-add-to-cart', plugin_dir_url(__FILE__) . 'assets/ajax-add-to-cart.js', array('jquery'), '', true);
+        }
+    }
+    add_action('wp_enqueue_scripts', 'woocommerce_ajax_add_to_cart_js', 99);*/
 }
