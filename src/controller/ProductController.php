@@ -54,9 +54,7 @@ class ProductController extends Controller{
     $nbProducts = $this->productRepository->getNbTotalProduct($categoryFilter, $minPrice, $maxPrice);
     
     $nb_total_pages = ceil($nbProducts / $this->NB_PRODUIT_PAR_PAGE);
-    if ($nb_total_pages < $start) {
-      $start = 1;
-    }
+    if ($nb_total_pages < $start) $start = 1;
 
     //Détermination du premier résultat à récupérer dans la base de données
     $offset = ($start - 1 ) * $this->NB_PRODUIT_PAR_PAGE ;
