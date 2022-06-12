@@ -10,7 +10,7 @@ function buildAdminView($data): string{
   $description = $values['description'] !== '' ? $values['description'] : '';
   $navHTML = navigation();
   $categoryHtml = categories($categories);
-  $trie_par_defautHtml = trie_par_defaut(0);
+  $trie_par_defautHtml = trie_par_defaut($sort);
   
   return <<<HTML
     $navHTML
@@ -123,7 +123,7 @@ function trie_par_defaut($sort){
     <label class="input-group-addon" for="input-sort">Trier par défaut</label>
     <div class="select-wrapper">
       <form action="" method="post">
-        <select name="sort" class="form-control" onchange="this.form.submit()">
+        <select name="defaultSort" class="form-control" onchange="this.form.submit()">
           $optionList
         </select>
         <input type="hidden" name="act" value="setSort">

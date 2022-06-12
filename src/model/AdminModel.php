@@ -39,4 +39,26 @@ class AdminModel{
       die('Echec addProduct, erreur n°' . $e->getCode() . ':' . $e->getMessage());
     }
   }
+
+  public function setDefaultSort($sort): void{
+    try {
+      $sql = "UPDATE `config` SET `sortDefault` = :sort WHERE id=1;";
+      $request = $this->database->prepare($sql);
+      $request->execute(['sort' => $sort]);
+    } catch (PDOException $e) {
+      die('Echec setDefaultSort, erreur n°' . $e->getCode() . ':' . $e->getMessage());
+    }
+  }
+
+  public function getDefaultSort(){
+    try {
+      $sql = 'SELECT sortDefault FROM `config` WHERE id=1;';
+      $req = $this->database->prepare($sql);
+      $req->execute();
+      $tab = $req->fetch(PDO::FETCH_NUM);
+      return $tab[0];
+    } catch (PDOException $e) {
+      die('Echec getCategory, erreur n°' . $e->getCode() . ':' . $e->getMessage());
+    }
+  }
 }

@@ -2,18 +2,18 @@
 require_once 'model/ProductModel.php';
 
 class ProductController extends Controller{
-  private $productRepository;
+  private $databaseProduct;
   private $NB_PRODUIT_PAR_PAGE = 10;
 
   public function __construct(){
     parent::__construct();
-    $this->productRepository = new ProductModel();
+    $this->databaseProduct = new ProductModel();
   }
 
   public function action_SingleProduit(){
     $data = false;
     if (isset($_GET["produitID"]) and preg_match("#^[1-9]\d*$#", $_GET["produitID"])) {
-      $data = $this->productRepository->getProduitDetails($_GET['produitID']);
+      $data = $this->databaseProduct->getProduitDetails($_GET['produitID']);
     }
     //Si on a bien un produit d'identifiant$_GET["id"]
     if ($data !== false) {
@@ -44,14 +44,14 @@ class ProductController extends Controller{
 
     $tri = "nomProduit ASC";
     $tris = ["nomProduit ASC","nomProduit DESC", "prix ASC", "prix DESC"];
-    $sort = 0;
-    if(isset($_GET["sort"]) and $_GET["sort"]> 0 and $_GET["sort"]<5){
-      $tri = $tris[$_GET["sort"]-1];
+    $sort = $this->databaseProduct->getDefaultSort();
+    if(isset($_GET["sort"]) and $_GET["sort"]>= 0 and $_GET["sort"]<4){
+      $tri = $tris[$_GET["sort"]];
       $sort = $_GET["sort"];
     } 
 
     //Récupération du nombre total de produit
-    $nbProducts = $this->productRepository->getNbTotalProduct($categoryFilter, $minPrice, $maxPrice);
+    $nbProducts = $this->databaseProduct->getNbTotalProduct($categoryFilter, $minPrice, $maxPrice);
     
     $nb_total_pages = ceil($nbProducts / $this->NB_PRODUIT_PAR_PAGE);
     if ($nb_total_pages < $start) $start = 1;
@@ -65,9 +65,9 @@ class ProductController extends Controller{
         //indice de la page de résultats visualisée
         'active' => $start,
         //Récupération les produits de la page $start
-        'products'  => $this->productRepository->getAllProductWithLimit($tri, $categoryFilter, $minPrice, $maxPrice, $offset, $this->NB_PRODUIT_PAR_PAGE),
+        'products'  => $this->databaseProduct->getAllProductWithLimit($tri, $categoryFilter, $minPrice, $maxPrice, $offset, $this->NB_PRODUIT_PAR_PAGE),
         // La listes des catégorie sur le site
-        'categorys' => $this->productRepository->getCategorys(),
+        'categorys' => $this->databaseProduct->getCategorys(),
         // La listes des catégorie sur le filtre
         'categoryFilter' => $categoryFilter,
         // le prix min à afficher

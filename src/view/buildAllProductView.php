@@ -151,8 +151,8 @@ function trier( $sort, $minPrice, $maxPrice, $categoryFilter){
     }
   }
   $optionList = '';
-  $listSort = ["Default", "Nom (A - Z)", "Nom (Z - A)", "Prix - croissant", "Prix - décroissant"];
-  for($i=0; $i<5; $i++){
+  $listSort = ["Nom (A - Z)", "Nom (Z - A)", "Prix - croissant", "Prix - décroissant"];
+  for($i=0; $i<4; $i++){
     $optionList .='<option value="'.$i.'" '.($i == $sort ? 'selected="selected"' : '').' >'.$listSort[$i].'</option>';
   }
   return <<<HTML

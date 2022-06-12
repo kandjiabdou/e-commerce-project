@@ -90,4 +90,16 @@ class ProductModel{
     if($categoryFilter !== false) $filter .= ' AND categorieID IN (\''.join("','", $categoryFilter).'\')';
     return $filter;
   }
+
+  public function getDefaultSort(){
+    try {
+      $sql = 'SELECT sortDefault FROM `config` WHERE id=1;';
+      $req = $this->database->prepare($sql);
+      $req->execute();
+      $tab = $req->fetch(PDO::FETCH_NUM);
+      return $tab[0];
+    } catch (PDOException $e) {
+      die('Echec getCategory, erreur n°' . $e->getCode() . ':' . $e->getMessage());
+    }
+  }
 }

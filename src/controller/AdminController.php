@@ -3,6 +3,7 @@ require_once 'model/AdminModel.php';
 
 class AdminController extends Controller{
   private $databaseAdmin;
+  private $data;
 
   public function __construct(){
     parent::__construct();
@@ -13,21 +14,18 @@ class AdminController extends Controller{
     }else{
       $this->action = "action_default";
     }
+    $sort = $this->databaseAdmin->getDefaultSort();
+    $categories = $this->databaseAdmin->getCategorys();
+    $values = ['name' => '', 'description' => ''];
+    $this->data = ['categories' => $categories,'values' => $values, 'message' => '', 'sort' => $sort ];
   }
 
   public function action_admin_home(){
-    $categories = $this->databaseAdmin->getCategorys();
-    $values = ['name' => '', 'description' => ''];
-    $data = ['categories' => $categories, 'message' => '', 'values' => $values];
-    return $this->generHtml("Admin", $data);
+    return $this->generHtml("Admin", $this->data);
   }
 
   public function action_add_product(){
-    $categories = $this->databaseAdmin->getCategorys();
-    $message = '';
-    $values = ['name' => '', 'description' => ''];
     $name = ''; $qty = 0; $prix = 0; $categ = 1; $descrip = '';
-
     if($this->isAddForm()){
       $name = htmlspecialchars($_POST['name']);
       $qty = htmlspecialchars($_POST['quantite']);
@@ -38,19 +36,22 @@ class AdminController extends Controller{
      
     if ($this->isAddFormFilledAndValid()){
         $this->databaseAdmin->addProduct($name, $qty, $prix, $categ, $descrip);
-        $message = 'Le produit a été bien ajouté';
+        $this->data['message'] = 'Le produit a été bien ajouté';
     } elseif ($this->isOneOfTheFieldsMissing()) {
-      $values['name'] = $name;
-      $values['description'] = $descrip;
-      $message = 'Veuillez remplir tous les champs correctement';
+      $this->data['values']['name'] = $name;
+      $this->data['values']['description'] = $descrip;
+      $this->data['message'] = 'Veuillez remplir tous les champs correctement';
     }
-
-    $data = ['categories' => $categories,'values' => $values, 'message' => $message ];
-    return $this->generHtml("Admin", $data);
+    return $this->generHtml("Admin", $this->data);
   }
+
   public function action_setSort(){
-    $data = $this->databaseAdmin->getCategorys();
-    return $this->generHtml("Admin", $data);
+    if(isset($_POST['defaultSort']) and $_POST['defaultSort']>=0 and $_POST['defaultSort']<4){
+      $this->databaseAdmin->setDefaultSort($_POST['defaultSort']);
+      $this->data['message'] = 'le tri par défaut est bien mis à jour';
+      $this->data['sort'] = $_POST['defaultSort'];
+    }
+    return $this->generHtml("Admin", $this->data);
   }
 
   public function action_default(){
