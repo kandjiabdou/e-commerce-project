@@ -2603,10 +2603,17 @@ ul.shipping-pro li {
 {
 	padding: 40px 40px;
     background: #fff;
+    margin: 10px;
     -webkit-box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.1);
     box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.1);
 }
-
+.filter_box
+{
+	padding: 5px 5px;
+    background: #fff;
+    -webkit-box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.1);
+}
 .login_page .login_box
 {
 	max-width: 900px;
@@ -2620,4 +2627,7 @@ ul.shipping-pro li {
     background-color: #E7E0D9;
     padding: 2%;
     border-radius: 5%;
+}
+.form-wrap {
+    display: flex;
 }

@@ -4,27 +4,29 @@ require_once 'model/UserModel.php';
 
 class LoginController extends Controller{
   private $authenticationService;
-  private $userRepository;
+  private $databaseUser;
 
   public function __construct(){
     parent::__construct();
     $this->authenticationService = new AuthenticationService();
-    $this->userRepository = new UserModel();
+    $this->databaseUser = new UserModel();
     $this->navBar = false;
   }
 
   public function action_login(){
     $error = '';
-
     if ($this->authenticationService->isUserConnected()) {
       $this->redirectToHomepage();
     }
-    if ($this->isLoginFormFilledAndValid()) {
+    if ($this->isLoginFormFilledAndValid()){
       $username = htmlspecialchars($_POST['username']);
       $password = htmlspecialchars($_POST['password']);
-      if ($this->userRepository->checkUserExistence($username, $password)) {
-        $this->authenticationService->connectUser();
-        $this->redirectToHomepage();
+      if ($this->databaseUser->checkUserExistence($username, $password)) {
+        //L'utilisateur existe, il peut se connecter
+        $role = $this->databaseUser->getUserRole($username);
+        $this->authenticationService->connectUser($role);
+        if($role == 2 ) $this->redirectToHomepage();
+        else $this->redirectToAminpage(); 
       } else {
         $error = 'Nom d\'utilisateur ou mot de passe incorrect';
       }
@@ -51,6 +53,11 @@ class LoginController extends Controller{
 
   private function redirectToHomepage(): void {
     header('Location: /e-commerce-project/src/');
+    exit();
+  }
+
+  private function redirectToAminpage(): void {
+    header('Location: /e-commerce-project/src/?ctrl=Admin');
     exit();
   }
 

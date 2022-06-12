@@ -7,7 +7,7 @@ class CommonComponents
     $head = self::htmlHeadComponent();
     $navbar = $withNavbar ? self::navbar() : '';
     $footer = $withNavbar ? self::htmlFooterComponent() : '';
-    $footerCopyright = self::footerCopyright();
+    $footerCopyright = $withNavbar ? self::footerCopyright() : '';
     $scripts = self::scripts();
 
     echo <<<HTML

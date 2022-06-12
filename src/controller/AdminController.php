@@ -1,60 +1,79 @@
 <?php
-require_once 'common/AuthenticationService.php';
-require_once 'database/DatabaseUserRepository.php';
+require_once 'model/AdminModel.php';
 
 class AdminController extends Controller{
-  private $authenticationService;
-  private $userRepository;
+  private $databaseAdmin;
 
   public function __construct(){
     parent::__construct();
-    $this->authenticationService = new AuthenticationService();
-    $this->userRepository = new DatabaseUserRepository();
+    $this->databaseAdmin = new AdminModel();
     $this->navBar = false;
+    if (isset($_POST['act']) and method_exists($this, "action_" . $_POST["act"])) {
+      $this->action = "action_" . $_POST["act"];
+    }else{
+      $this->action = "action_default";
+    }
   }
 
-  public function action_login(){
-    $error = '';
+  public function action_admin_home(){
+    $categories = $this->databaseAdmin->getCategorys();
+    $values = ['name' => '', 'description' => ''];
+    $data = ['categories' => $categories, 'message' => '', 'values' => $values];
+    return $this->generHtml("Admin", $data);
+  }
 
-    if ($this->authenticationService->isUserConnected()) {
-      $this->redirectToHomepage();
+  public function action_add_product(){
+    $categories = $this->databaseAdmin->getCategorys();
+    $message = '';
+    $values = ['name' => '', 'description' => ''];
+    $name = ''; $qty = 0; $prix = 0; $categ = 1; $descrip = '';
+
+    if($this->isAddForm()){
+      $name = htmlspecialchars($_POST['name']);
+      $qty = htmlspecialchars($_POST['quantite']);
+      $prix = htmlspecialchars($_POST['prix']);
+      $categ = htmlspecialchars($_POST['categorie']);
+      $descrip = htmlspecialchars($_POST['description']);
     }
-    if ($this->isLoginFormFilledAndValid()) {
-      $username = htmlspecialchars($_POST['username']);
-      $password = htmlspecialchars($_POST['password']);
-      if ($this->userRepository->checkUserExistence($username, $password)) {
-        $this->authenticationService->connectUser();
-        $this->redirectToHomepage();
-      } else {
-        $error = 'Nom d\'utilisateur ou mot de passe incorrect';
-      }
+     
+    if ($this->isAddFormFilledAndValid()){
+        $this->databaseAdmin->addProduct($name, $qty, $prix, $categ, $descrip);
+        $message = 'Le produit a été bien ajouté';
     } elseif ($this->isOneOfTheFieldsMissing()) {
-      $error = 'Veuillez remplir tous les champs';
+      $values['name'] = $name;
+      $values['description'] = $descrip;
+      $message = 'Veuillez remplir tous les champs correctement';
     }
 
-    return $this->generHtml('Login', $error);
+    $data = ['categories' => $categories,'values' => $values, 'message' => $message ];
+    return $this->generHtml("Admin", $data);
   }
-
-  public function action_logout(): void {
-    $this->authenticationService->logoutUser();
-    $this->redirectToHomepage();
-  }
-
-  private function isLoginFormFilledAndValid(): bool{
-    return isset($_POST['username'], $_POST['password']) && $_POST['username'] !== '' && $_POST['password'] !== '';
-  }
-
-  private function isOneOfTheFieldsMissing(): bool{
-    return (isset($_POST['username']) && $_POST['username'] === '')
-      || (isset($_POST['password']) && $_POST['password'] === '');
-  }
-
-  private function redirectToHomepage(): void {
-    header('Location: /e-commerce-project/src/');
-    exit();
+  public function action_setSort(){
+    $data = $this->databaseAdmin->getCategorys();
+    return $this->generHtml("Admin", $data);
   }
 
   public function action_default(){
-    return $this->action_login();
+      return $this->action_admin_home();
   }
-}
+  private function isAddForm(): bool{
+    return isset($_POST['name'], $_POST['quantite'], $_POST['prix'], $_POST['categorie'], $_POST['description']);
+  }
+  private function isOneOfTheFieldsMissing(): bool{
+    return (isset($_POST['name']) && !empty($_POST['name']))
+      || (isset($_POST['quantite']) && $_POST['quantite'] === '')
+      || (isset($_POST['prix']) && $_POST['prix'] === '')
+      || (isset($_POST['categorie']) && $_POST['categorie'] === '')
+      || (isset($_POST['description']) && !empty($_POST['description']));
+  }
+
+  private function isAddFormFilledAndValid(): bool{
+    return $this->isAddForm()
+      && strlen(trim($_POST['name'])) > 0
+      && $_POST['quantite'] >= 0
+      && $_POST['prix'] >= 0
+      && $_POST['categorie'] > 0
+      && $_POST['categorie'] < 5
+      && strlen(trim($_POST['description'])) > 0;
+  }
+} 

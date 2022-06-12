@@ -22,6 +22,9 @@ class SessionClient {
   public function delete($key) {
     unset($_SESSION[$key]);
   }
+  public static function finishSession() {
+    session_destroy();
+  }
 
   public static function getInstance() {
     if(is_null(self::$instance)) {

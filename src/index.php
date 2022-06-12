@@ -2,7 +2,7 @@
 require_once "controller/Controller.php"; //Inclusion de la classe Controller
 require_once 'common/CommonComponents.php';
 
-$controllers = ["Home","Product", "Login", "Signin","SingleProduit"]; //Liste des contrôleurs
+$controllers = ["Home","Product", "Login", "Signin","SingleProduit", "Admin"]; //Liste des contrôleurs
 $controller_default = "Home"; //Nom du contrôleur par défaut
 
 //On teste si le paramètre controller existe et correspond à un contrôleur de la liste $controllers
@@ -11,7 +11,26 @@ if (isset($_GET['ctrl']) and in_array($_GET['ctrl'], $controllers)) {
 } else {
     $nom_controller = $controller_default;
 }
-    
+
+$authenticationService = new AuthenticationService();
+$connected = $authenticationService->isUserConnected();
+if ($connected) {
+    $role = $authenticationService->getSessionUserRole();
+    // si l'utilisateur est connecté
+    // mais veut acceder à la page admin
+    if($role == 2 and $nom_controller == "Admin" ) $nom_controller = "Home";
+    // si l'admin veut acceder à d'autres pages
+    if($role == 1 and $nom_controller !== "Login") $nom_controller = "Admin";
+}else {// si l'utilisateur n'est pas connecté
+    // mais veut acceder à la page admin
+    if($nom_controller == "Admin" ) $nom_controller = "Home";
+}
+
+/*
+- connected : admin => ctrl = Admin
+- connected : user and ctrl=Admin => ctrl = home
+- not connected : ctrl=Admin | check => home
+*/
 //On détermine le nom de la classe du contrôleur 
 $nom_classe =  $nom_controller.'Controller';
 
@@ -24,9 +43,8 @@ if (file_exists($nom_fichier)) {
     include_once $nom_fichier;
     $controller = new $nom_classe();
     $action = $controller->action;
-    $navBar = $controller->navBar;
     $composanthtml = $controller->$action();
-    CommonComponents::render($composanthtml, $navBar);
+    CommonComponents::render($composanthtml, $controller->navBar);
 } else {
     include_once 'view/build404View.php';
     $html404 = build404View();

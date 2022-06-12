@@ -36,4 +36,11 @@ class UserModel{
       'password' => $password
     ]);
   }
+
+  public function getUserRole(string $username):int{
+    $request = $this->database->prepare('SELECT role FROM user WHERE username = :username');
+    $request->execute(['username' => $username]);
+    $res = $request->fetch(PDO::FETCH_NUM);
+    return $res[0];
+  }
 }

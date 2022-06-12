@@ -2,15 +2,15 @@
 require_once 'model/HomeModel.php';
 
 class HomeController extends Controller{
-  private $homeRepository;
+  private $databaseHome;
 
   public function __construct(){
     parent::__construct();
-    $this->homeRepository = new HomeModel();
+    $this->databaseHome = new HomeModel();
   }
 
   public function action_home(){
-    $data = $this->homeRepository->get5Products();
+    $data = $this->databaseHome->get5Products();
     return $this->generHtml("Home", $data);
   }
 

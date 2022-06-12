@@ -83,10 +83,10 @@ function buildSingleProduitView($produit): string
 									<div class="pull-left">
 										<div class="custom pull-left">
 											<button
-												onclick="var result = document.getElementById('qty'); var qty = result.value; if( !isNaN( qty ) && qty > 0 ) result.value--;return false;"
+												onclick="var result = document.getElementById('qty'); var qty = result.value; if( !isNaN( qty ) && qty > 1 ) result.value--;return false;"
 												class="reduced items-count" type="button"><i
 													class="fa fa-minus">&nbsp;</i></button>
-											<input type="text" class="input-text qty" title="Qty" value="1"
+											<input type="number" min="1" class="input-text qty" title="Qty" value="1"
 												maxlength="12" id="qty" name="qty">
 											<button
 												onclick="var result = document.getElementById('qty'); var qty = result.value; if( !isNaN( qty )) result.value++;return false;"
