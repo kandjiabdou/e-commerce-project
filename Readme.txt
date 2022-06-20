@@ -25,6 +25,10 @@ Deux utilisateur de teste sont créés avec la base de donnée :
 	- identifiant : admin@test.fr
 	- mdp : 123
 
+Afin de l'adapter à votre environnement, changer la configuration de la base de donnée dans le fichier:
+	-src/common/DatabaseClient.php
+Ce projet a été réalisé avec le logiciel Wamp avec MySQL.
+
 
 ## Fonctionnalité
 Toutes les fonctionnalité demandées y sont présentes

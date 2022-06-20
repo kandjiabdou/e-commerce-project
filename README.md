@@ -19,12 +19,16 @@ Le projet est accompagné d'un fichier SQL 'e-commerce-project.sql' qui contient
 Le modèle conseptuelle de donnée est aussi donné sous format PNG 'shemabdd.png'
 
 Deux utilisateur de teste sont créés avec la base de donnée :
-* un client :
+- un client :
 	- identifiant : user@test.fr
 	- mdp : 123
-* un administrateur:
+- un administrateur:
 	- identifiant : admin@test.fr
 	- mdp : 123
+
+Afin de l'adapter à votre environnement, changer la configuration de la base de donnée dans le fichier:
+	-src/common/DatabaseClient.php
+Ce projet a été réalisé avec le logiciel Wamp avec MySQL.
 
 
 ## Fonctionnalité
