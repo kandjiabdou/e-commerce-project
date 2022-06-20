@@ -1,4 +1,3 @@
-# e-commerce-project
 # Projet Programmation Web
 
 Info1 Sup Galilée - semestre 2 - 2021/2022
