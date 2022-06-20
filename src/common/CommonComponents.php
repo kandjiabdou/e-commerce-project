@@ -179,7 +179,7 @@ HTML;
     return <<<HTML
       <div class="footer_copyright">
         <div class="container-fluid">
-          <p class="wow fadeInDown animated">© Copyright 2022 by KANDJI-GUEYE-BARRY. All right Reserved</p>
+          <p class="wow fadeInDown animated">© Copyright 2022 by KANDJI-GUEYE-BARRY-BA-SECK. All right Reserved</p>
         </div>
       </div>
     HTML;
