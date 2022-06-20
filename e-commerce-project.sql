@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : sam. 11 juin 2022 à 14:48
+-- Généré le : lun. 20 juin 2022 à 02:06
 -- Version du serveur : 5.7.36
 -- Version de PHP : 7.4.26
 
@@ -40,10 +40,30 @@ CREATE TABLE IF NOT EXISTS `categorie` (
 --
 
 INSERT INTO `categorie` (`categorieID`, `nomCategorie`, `descriptionCategorie`) VALUES
-(1, 'Vêtements', 'Tout ce qui sert à couvrir le corps humain pour le protéger ; pièce de l\'habillement. Littéraire. Ce qui habille, recouvre quelque chose ; parure, manteau.'),
-(2, 'Accessoires', 'Des élèments indispensables pour ton bon geek'),
-(3, 'Vaisselle', 'Ensemble des pièces et accessoires destinés au service de la table'),
-(4, 'Jeu vidéo', 'Un jeu vidéo est une activité de loisir basée sur des périphériques informatiques (écran LCD, manette/joystick, hauts parleurs, ...) permettant d\'interagir dans un environnement virtuel conformément à un ensemble de règles prédéfinies');
+(1, 'telephone', 'Téléphone portable high tech'),
+(2, 'ordinateur', 'Ordinateur portable'),
+(3, 'caméra', 'caméra'),
+(4, 'montre', 'montre');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `config`
+--
+
+DROP TABLE IF EXISTS `config`;
+CREATE TABLE IF NOT EXISTS `config` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `sortDefault` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `config`
+--
+
+INSERT INTO `config` (`id`, `sortDefault`) VALUES
+(1, 2);
 
 -- --------------------------------------------------------
 
@@ -55,22 +75,24 @@ DROP TABLE IF EXISTS `lignepanier`;
 CREATE TABLE IF NOT EXISTS `lignepanier` (
   `lignePanierID` int(11) NOT NULL AUTO_INCREMENT,
   `panierID` int(11) NOT NULL,
-  `numeroLignePanier` int(11) NOT NULL,
   `produitID` int(11) NOT NULL,
   `quantité` int(11) NOT NULL,
   PRIMARY KEY (`lignePanierID`),
   KEY `panierID` (`panierID`),
   KEY `produitID` (`produitID`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Déchargement des données de la table `lignepanier`
 --
 
-INSERT INTO `lignepanier` (`lignePanierID`, `panierID`, `numeroLignePanier`, `produitID`, `quantité`) VALUES
-(1, 1, 1, 1, 4),
-(2, 1, 1, 2, 1),
-(3, 2, 1, 2, 2);
+INSERT INTO `lignepanier` (`lignePanierID`, `panierID`, `produitID`, `quantité`) VALUES
+(15, 1, 27, 1),
+(16, 1, 37, 1),
+(20, 2, 19, 1),
+(21, 2, 6, 2),
+(22, 2, 8, 1),
+(23, 2, 23, 1);
 
 -- --------------------------------------------------------
 
@@ -84,18 +106,19 @@ CREATE TABLE IF NOT EXISTS `panier` (
   `userID` int(11) NOT NULL,
   `etatPanier` int(11) NOT NULL,
   `HeureAchat` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `nbProduit` int(11) DEFAULT NULL,
+  `prixTotal` int(11) DEFAULT NULL,
   PRIMARY KEY (`panierID`),
   KEY `userID` (`userID`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Déchargement des données de la table `panier`
 --
 
-INSERT INTO `panier` (`panierID`, `userID`, `etatPanier`, `HeureAchat`) VALUES
-(1, 3, 1, '2016-11-18 13:28:18'),
-(2, 5, 0, '2016-11-18 13:28:18'),
-(4, 3, 1, '2016-05-03 12:28:18');
+INSERT INTO `panier` (`panierID`, `userID`, `etatPanier`, `HeureAchat`, `nbProduit`, `prixTotal`) VALUES
+(1, 2, 1, '2022-06-20 00:17:54', 3, 522),
+(2, 2, 1, '2022-06-20 01:37:25', 4, 1361);
 
 -- --------------------------------------------------------
 
@@ -114,39 +137,40 @@ CREATE TABLE IF NOT EXISTS `produit` (
   `quantiteProduit` int(11) NOT NULL,
   PRIMARY KEY (`produitID`),
   KEY `categorieID` (`categorieID`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Déchargement des données de la table `produit`
 --
 
 INSERT INTO `produit` (`produitID`, `nomProduit`, `prix`, `description`, `cheminimage`, `categorieID`, `quantiteProduit`) VALUES
-(1, 't-shirt star wars keep caml', 20, 'Magnifique t-shirt de la licence star wars. Imprimé Dark Vador avec \"Keep Kalm and use the force\"', 'Images/Produit/1.jpg', 1, 10),
-(2, 'Lampe Tetris', 30, 'La lampe qu\'il faut pour ton appart !', 'Images/Produit/2.jpg', 3, 10),
-(3, 'Tasse Winston', 15, 'Tasse à l\'effigie du personnage de Winston du jeu Overwatch', 'Images/Produit/3.jpg', 2, 0),
-(4, 'Tasse Reaper', 15, 'Tasse à l\'effigie du personnage de Reaper du jeu Overwatch', 'Images/Produit/4.jpg', 1, 10),
-(5, 'Tasse Tracer', 15, 'Tasse à l\'effigie du personnage de Tracer du jeu Overwatch', 'Images/Produit/5.jpg', 4, 0),
-(6, 'Starcraft 2 Legacy of the void - PC', 35, 'StarCraft II poursuit la saga épique de Protoss, des Terrans et des Zergs ! Ces trois puissantes races s\'affrontent une nouvelle fois dans ce jeu de stratégie en temps réel au rythme rapide, suite du légendaire StarCraft. Des légions d\'unités expérimentées, modernisées, et entièrement nouvelles combattront dans toute la galaxie, alors que chaque faction lutte pour sa survie !', 'Images/Produit/6.jpg', 4, 10),
-(7, 'Bravely Default - Nintendo 3DS', 41, 'La lueur du cristal s\'évanouit progressivement. Sa lumière faiblissante laisse présager un grand malheur. Il faut agir…\nDans Bravely Default, la quête à travers Luxendarc pour réveiller les cristaux est un RPG unique et innovant, en exclusivité sur les consoles de la famille Nintendo 3DS. ', 'Images/Produit/7.jpg', 4, 10),
-(8, 'Souris Pro Gamer', 110, 'Logitech G900 Chaos Spectrum Souris Pro Gamer sans-fil ambidextre Noir', 'Images/Produit/8.jpg', 2, 0),
-(9, 'Volant de course', 110, 'Volant de course pour PC, PS3 et PS4, en cuir et métal - noir', 'Images/Produit/9.jpg', 3, 10),
-(10, 'T-Shirt - Geek en Charge', 19, 'Les t-shirts Geek s\'adresse aux accros à Internet, jeux video, mangas et geekerie en tout genre! Une idée cadeau pour vos amis geeks et qui n\'a pas d\'amis geek de nos jours..? Pour chaque geekerie il y a le tee shirt Geek qui convient.', 'Images/Produit/10.jpg', 1, 10),
-(11, 'T-Shirt - Geek Level Up', 19, 'Les t-shirts Geek s\'adresse aux accros à Internet, jeux video, mangas et geekerie en tout genre! Une idée cadeau pour vos amis geeks et qui n\'a pas d\'amis geek de nos jours..? Pour chaque geekerie il y a le tee shirt Geek qui convient.', 'Images/Produit/11.jpg', 1, 10),
-(12, 'T-Shirt Homme STAR WARS - Yoda Cool Stereo', 20, '- T-Shirt Star Wars Pour Homme - Motif à l\'Avant de DJ Yoda Avec des Lunettes Brillantes et un Casque Autour du Cou - Les Éléments Bleus Sont Sérigraphiés Avec une Matière Brillante - Modèle 100% Officiel de la Licence Star Wars', 'Images/Produit/12.jpg', 1, 0),
-(13, 'Porte tablette retro', 99, 'iCADE Arcade Cabinet', 'Images/Produit/13.jpg', 3, 10),
-(14, 'Chaussures zelda', 52, 'Vivre sa passion c\'est bien. La porter c\'est encore mieux.', 'Images/Produit/14.jpg', 2, 10),
-(15, 'Baskettes tetris', 49, 'Nous les Geek on a les armoires remplies de fringues complètement Geek. Ce qu’il nous manque bien souvent par contre, ce sont des chaussures ou des basquettes Geek.', 'Images/Produit/15.jpg', 4, 10),
-(16, 'Baskettes Angry Birds', 109, 'Chaussures-Collector', 'Images/Produit/16.jpg', 2, 10),
-(17, 'Baskettes Star wars', 109, 'Chaussures-Collector', 'Images/Produit/17.jpg', 2, 10),
-(18, 'Tasse \"gamer fuel\"', 12, 'Un geek a besoin de recharger ses batteries', 'Images/Produit/18.jpg', 1, 10),
-(19, 'Bébé Groot Dansant', 35, 'Comme nous, vous avez aimé The Guardiens Of The Galaxy (alias les Gardiens de la Galaxie) ? Vous allez adorer le bébé groot dansant ! Oui le Baby Groot Dancing, reprend l’une des dernières scène du film où on retrouve Groot, un extraterrestre végétal à mi-chemin entre la racine et l’arbre, qui, alors qu’il avait brûlé, repousse en dansant sur I Want You Back des Jackson Five dans un pot de fleur. Le bébé groot dansant sur ton bureau !', 'Images/Produit/19.png', 3, 0),
-(20, 'Poubelle Domestique R2-D2', 105, 'On ne peut pas dire que la vie est belle pour l’ex-robot R2D2 qui depuis sa retraite, ne cesse d’endosser des sous rôles. J’entends sur le registre du marketing, évidemment. Aujourd’hui il joue les poubelles hi-tech pour Geek. Un accessoire indispensable pour maintenir de l’ordre dans sa chambre.', 'Images/Produit/20.jpg', 3, 10),
-(21, 'Tasse game boy', 52, 'Mug game boy', 'Images/Produit/21.jpg', 1, 10),
-(22, 'Boite à gateaux sonore tardis docteur who', 29, 'On ne s\'arrête pas de baver d\'envie devant cette boîte à cookies sonore Doctor Who en forme de Tardis... Conçue en plastique alimentaire pour une meilleure hygiène et équipée d\'un couvercle amovible, elle sait comment s\'y prendre pour garder nos gâteaux à l\'abri. Mais ce qui nous fait véritablement craquer, ce sont ses effets sonores et lumineux qui émettent des sons du Tardis et font s\'illuminer la lanterne lorsque l’on referme le couvercle ou lorsque l’on appuie dessus !', 'Images/Produit/22.jpg', 2, 10),
-(23, 'Haut-Parleurs Panda', 24, 'On aime son petit look animal vraiment adorable et son côté pratique pour écouter de la musique façon insolite : oreille gauche (noire), vous pourrez régler le son de votre playlist, oreille droite, c’est les tonalités de la chanson que vous réglez, histoire de vous faire un joli son. Alimenté par un port USB, comme maintenant tous les gadgets geek et high-tech, ce petit panda haut-parleur pourrait bien devenir votre meilleur ami.', 'Images/Produit/23.png', 3, 10),
-(24, 'Sac à Dos BB-8', 55, 'Arrêtez tout, on a LE cadeau de Noël : le sac à dos Buddies BB-8 ! Oui le petit droïde vedette de Star Wars 7 débarque en mode sac pour transporter tout votre petit matos geek sur le dos. Un sac à dos Star Wars très réussi où vous pourrez ranger votre anti-stress étoile noire ou votre portefeuille R2-D2.', 'Images/Produit/24.png', 4, 10),
-(25, 'Lampe Torche Sabre Laser', 29, 'Tout le monde devrait avoir son sabre laser de Jedi dans cette jungle qu’est devenu le monde ! Et bien cette réplique de sabre laser Star Wars vous aidera dans votre combat quotidien contre le mal, en tout cas contre le côté obscur de la Force puisque c’est une lampe torche !', 'Images/Produit/25.png', 3, 10),
-(26, 'Peluche Faucon Millenium', 9, 'Le Faucon Millenium, le célèbre vaisseau Star Wars de Han Solo atterrit dans le berceau de bébé ! Une bien jolie peluche reprenant donc le design du Faucon Millenium, pour rappel le vaisseau le plus rapide de la galaxie. Rien que ça. Et puis inutile de la gagner en jouant aux cartes contre Lando Calrissian pour obtenir le Faucon Millenium peluche : il suffit de l’ajouter à votre panier ! Une peluche Star Wars qui fera rêver les petits et plaisir aux papas !', 'Images/Produit/26.png', 3, 10);
+(1, 'Xiaomi Redmi Note ', 169, 'Pile(s) / Batterie(s) : ‏ : ‎ 1 Lithium-polymère nécessite des piles.\r\nIs Discontinued By Manufacturer ‏ : ‎ Non\r\nDimensions du produit (L x l x h) ‏ : ‎ 0.89 x 7.53 x 16.18 cm; 490 grammes\r\nDate de mise en ligne sur Amazon.fr ‏ : ‎ 20 mai 2021\r\nFabricant ‏ : ‎ Xiaomi\r\nASIN ‏ : ‎ B095BMDKGM\r\nNuméro du modèle de l\'article ‏ : ‎ Redmi Note 10\r\nPays d\'origine ‏ : ‎ Hong Kong', 'telephone/1.jpg', 1, 0),
+(2, 'DOOGEE S98(2022) Android', 369, 'DOOGEE S98 adopte une nouvelle génération d\'Android 12, une grande mémoire de 8 + 256 Go et un écran arrière intelligent innovant. C\'est un téléphone portable incassable avec des performances de coût élevées.', 'telephone/2.jpg', 1, 8),
+(3, 'Xiaomi YS45', 65, 'Un smartphone avec un écran de 5,0 pouces fournit des visuels de haute qualité et des couleurs vives pour votre contenu, images, réseaux sociaux, photos et vidéos. 1 go de RAM + 4 go de Rom, 4 go de stockage multimédia extensible de 32 go de Rom de grande capacité via la carte Micro SD..', 'telephone/3.jpg', 1, 8),
+(4, 'Samsung Galaxy SM-A226B', 165, 'Pile(s) / Batterie(s)  : 1 Lithium-polymère - incluse(s)\r\nIs Discontinued By Manufacturer :  Non\r\nDimensions du produit (L x l x h): 0.9 x 7.64 x 16.72 cm; 203 grammes\r\nDate de mise en ligne sur Amazon.fr : 9 juillet 2021\r\nFabricant  :  Samsung', 'telephone/4.jpg', 1, 7),
+(5, 'Huawei P40 Lite ', 292, 'Smartphone débloqué 4G (6,4 pouces - 6/128go - Double Nano SIM EMUI 10.1 & AppGallery ) Noir', 'telephone/5.jpg', 1, 5),
+(6, 'Apple iPhone 11 128Go', 409, 'Écran LCD Liquid Retina HD 6,1 pouces. Résistant à la poussière et à l’eau (jusqu’à 2 mètres pendant 30 minutes maximum, IP68). Double appareil photo avec ultra grand-angle et grand-angle 12 Mpx, mode Nuit, mode Portrait et vidéo 4K jusqu’à 60 i/s', 'telephone/6.jpg', 1, 7),
+(7, 'Apple iPhone 7 32Go Or Rose', 65, 'Le produit est reconditionné, il est entièrement fonctionnel et en \"Excellent état\". Il bénéficie de la garantie d’un an Amazon Renewed.', 'telephone/7.jpg', 1, 7),
+(8, 'Apple iPhone 13 (128 Go) ', 65, 'Dans le cadre de nos efforts pour atteindre nos objectifs environnementaux, iPhone 13 n\'inclut plus d\'EarPods. Veuillez utiliser vos EarPods existants ou acheter cet accessoire séparément.', 'telephone/8.jpg', 1, 7),
+(9, 'Asus Vivobook 14 E410MA', 394, '1,3 kg : Avec son poids plume et son format compact, le VivoBook 14 E410 vous aide à atteindre le summum de la productivité.', 'ordinateur/9.jpg', 2, 4),
+(10, 'Lenovo IdeaPad 3 15IGL05', 279, 'Caméra 0.3MP avec PrivacyShutter qui bloque les regards indiscrets lorsque vous souhaitez protéger votre vie privée, Grâce à son écran 17.3\" HD d’une résolution de (1366x768) pixels, le PC portable Lenovo Ideapad 3 vous permet de profiter de vos contenus avec une image nette', 'ordinateur/10.jpg', 2, 5),
+(11, 'Microsoft Surface Laptop', 589, 'Taille de l\'affichage:12.4 pouces\r\nDescription du disque dur:SSD\r\nVitesse du modèle CPU:4.2 GHz\r\nTaille de la mémoire:8 Go', 'ordinateur/11.jpg', 2, 4),
+(12, 'Microsoft Surface Pro 8', 799, 'Technologie de communication sans fil:Wi-Fi, Système d\'exploitation:Windows 11, Taille de l\'affichage:13 pouces Capacité:256 Go', 'ordinateur/12.jpg', 2, 8),
+(13, 'Apple MacBook Pro 2019', 2899, '16 Pouces, 16Go RAM, 1To de Stockage - Gris Sidéral', 'ordinateur/13.jpg', 2, 4),
+(14, 'MacBook Air 13 - Reconditionné', 389, 'Le produit est reconditionné, il est entièrement fonctionnel et en \"Excellent état\". Il bénéficie de la garantie d’un an Amazon Renewed.', 'ordinateur/14.jpg', 2, 4),
+(15, 'LIGE Montre Mode Spor', 39, 'Acier inoxydable: confortable, l\'acier inoxydable argenté s\'adapte facilement à la longueur du poignet, ce qui est un excellent cadeau pour votre famille, vos amis, vous-même.', 'montre/15.jpg', 4, 4),
+(16, 'Montre Chronographe Diesel', 180, 'Finition polie et brossée, Boucle déployante. Le design des boîtes à montres Diesel se renouvelle à chaque saison, Étanchéité: 10 ATM.', 'montre/16.jpg', 4, 8),
+(17, 'Montres intelligentes - Slothcloud', 59, 'La montre intelligente peut surveiller avec précision les trois données de fréquence cardiaque,d\'oxygène sanguin et de pression artérielle.Vous pouvez afficher ces données directement sur votre montre pour vous aider à mieux comprendre votre santé.Vous devez ajuster votre style de vie raisonnablement.fournir une analyse complète de la qualité de votre sommeil', 'montre/17.jpg', 4, 8),
+(18, 'FOSSIL - Automatique Montre', 129, 'Montre FOSSIL homme - Boîtier rond (diam. 44 mm) en acier inoxydable, finition polie et brossée - Etanche 5 ATM', 'montre/18.jpg', 4, 1),
+(19, 'Apple Watch SE 2021', 279, '2021 Apple Watch SE GPS, Boîtier en aluminium argent de 40 mm, Bracelet Sport bleu abysse - Regular', 'montre/19.jpg', 4, 2),
+(20, 'Apple Watch Series 3', 219, 'Apple Watch Series 3 (GPS, 38mm) Boîtier en Aluminium Gris Sidéral - Bracelet Sport Noir', 'montre/20.jpg', 4, 8),
+(21, 'Apple Watch Series 7', 399, 'Apple Watch Series 7 (GPS) Boîtier en Aluminium Minuit de 41 mm, Bracelet Sport Minuit - Regular - Noir', 'montre/21.jpg', 4, 8),
+(22, 'Camera Ultra HD 48MP Vlogging', 189, 'Appareil photo numérique haute résolution 4K 48MP: Cet appareil photo numérique peut enregistrer des vidéos de résolution jusqu\'à 4K / 30 FPS et des images de 48,0 mégapixels. Cette caméra de vlog prend également en charge le zoom avant ou le zoom arrière 16x. Il est équipé d\'un objectif grand angle 0.45X52mm, d\'un objectif macro et d\'une carte mémoire 32G. Cet appareil photo est conçu pour que les débutants profitent du charme de la photographie', 'camera/22.jpg', 3, 8),
+(23, 'Appareil Ultra HD 48MP Vlogging', 199, 'Appareil photo numérique haute résolution 4K 48MP: Cet appareil photo numérique peut enregistrer des vidéos de résolution jusqu\'à 4K / 30 FPS et des images de 48,0 mégapixels. Appareil Photo numérique 4K 48MP Appareil Photo Compact, Appareil Photo de vlogging à écran Ultra-Clair', 'camera/23.jpg', 3, 8),
+(24, 'Canon EOS 2000d', 609, 'Kit Exclusif Amazon: Canon EOS 2000D + EF-S 18-55mm f/3.5-5.6 IS II. Type d appareil photo: Kit d appareil-photo SLR. Résolution d image maximale: 6000 x 4000 pixels. La sensibilité ISO (max): 12800. Longueur focale: 18 - 55 mm. Vitesse maximale d obturation de la caméra: 1/4000 s. Wifi. Type HD: Full HD', 'camera/24.jpg', 3, 8),
+(26, 'Canon Powershot G5 X', 549, 'Capteur d\'image : CMOS rétroéclairé de type 1,0 Processeur : Digic 6 avec technologie iSAPS\r\nZoom optique 4 x Ecran : 3 pouces Full HD\r\nDistance focale : 24 mm - 100 mm\r\nType de batterie : Lithium Ion', 'camera/26.jpg', 3, 1),
+(27, 'AGFA PHOTO Realishot DC5200', 44, 'Appareil Photo Numérique Compact (21 MP, Ecran LCD 2.4’’, Zoom Digital 8X, Batterie Lithium) Violet. RÉSOLUTION PHOTO ET VIDEO - L\'appareil photo numérique Realishot DC5200 est doté d\'une résolution photo de 21 MP et d\'une qualité vidéo HD (1280x720)', 'camera/27.jpg', 3, 9),
+(37, 'Appareil Photo Etanche', 69, 'Caméra étanche 1080P et 30MP: Cette appareil photo etanche  récemment mise à niveau prend en charge la vidéo 1080P et les photos 30MP avec un zoom numérique jusqu\'à 16x. Il peut vous aider à capturer des photos plus merveilleuses et réelles. Cette caméra haute définition 1080P peut donner vie à vos vidéos en capturant vos moments préférés avec une qualité incroyable. C\'est le choix parfait pour les photographes débutants.', 'camera/25.jpg', 3, 4);
 
 -- --------------------------------------------------------
 
@@ -159,38 +183,19 @@ CREATE TABLE IF NOT EXISTS `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `firstname` varchar(255) CHARACTER SET utf8 NOT NULL,
   `lastname` varchar(255) CHARACTER SET utf8 NOT NULL,
-  `mode` int(11) NOT NULL,
+  `role` int(11) NOT NULL,
   `username` varchar(255) COLLATE utf8_bin NOT NULL,
   `password` varchar(255) COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Déchargement des données de la table `user`
 --
 
-INSERT INTO `user` (`id`, `firstname`, `lastname`, `mode`, `username`, `password`) VALUES
-(1, 'Reynaert', 'Vincent', 1, 'vincent.reynaert@isen-lille.fr', 'ad0557319768587a736ee716b5bc48945c39aaab'),
-(2, 'Sobczak', 'Nicolas', 1, 'nicolas.sobczak@isen.yncrea.fr', 'ad0557319768587a736ee716b5bc48945c39aaab'),
-(3, 'Pryfer', 'Sylvain', 2, 'feitte@gmail.com', 'ad0557319768587a736ee716b5bc48945c39aaab'),
-(4, 'Elsa', 'Queen of Arendelle', 2, 'anna.elsa@gmail.com', 'ad0557319768587a736ee716b5bc48945c39aaab'),
-(5, 'Pika', 'Chu', 2, 'pikachu@nintendo.com', 'ad0557319768587a736ee716b5bc48945c39aaab'),
-(6, 'Landais', 'Baudouin', 2, 'baudouin.landais@isen.yncrea.fr', 'ad0557319768587a736ee716b5bc48945c39aaab'),
-(7, 'Levert', 'Quentin', 2, 'quentin.levert@isen.yncrea.fr', 'ad0557319768587a736ee716b5bc48945c39aaab'),
-(8, 'Noet', 'Kevin', 2, 'kevin.noet@isen.yncrea.fr', 'ad0557319768587a736ee716b5bc48945c39aaab'),
-(9, 'Percq', 'Timothée', 2, 'timothee.percq@isen.yncrea.fr', 'ad0557319768587a736ee716b5bc48945c39aaab'),
-(10, 'Polaert', 'Francis', 2, 'francis.polaert@isen.yncrea.fr', 'ad0557319768587a736ee716b5bc48945c39aaab'),
-(11, 'Valencourt', 'Vivien', 2, 'vivien.valencourt@isen.yncrea.fr', 'ad0557319768587a736ee716b5bc48945c39aaab'),
-(12, 'Vandierdonck', 'Guillaume', 2, 'guillaume.vandierdonck@isen.yncrea.fr', 'ad0557319768587a736ee716b5bc48945c39aaab'),
-(13, 'Vanmarcke', 'Romain', 2, 'romain.vanmarcke@isen.yncrea.fr', 'ad0557319768587a736ee716b5bc48945c39aaab'),
-(14, 'Vermeil', 'Julien', 2, 'julien.vermeil@isen.yncrea.fr', 'ad0557319768587a736ee716b5bc48945c39aaab'),
-(15, 'You', 'Qi', 2, 'qi.you@isen.yncrea.fr', 'ad0557319768587a736ee716b5bc48945c39aaab'),
-(16, 'Yue', 'Cuize', 2, 'cuize.yue@isen.yncrea.fr', 'ad0557319768587a736ee716b5bc48945c39aaab'),
-(17, 'Trouche', 'Pierre', 2, 'trouchyLeMalade@isen.yncrea.fr', 'ad0557319768587a736ee716b5bc48945c39aaab'),
-(18, 'Abdou', 'kandji', 2, 'a@k.k', '81dc9bdb52d04dc20036dbd8313ed055'),
-(19, 'Abdou', 'kandji', 2, 'a2@k.k', '81dc9bdb52d04dc20036dbd8313ed055'),
-(20, 'Abdou', 'kandji', 2, 'abdou@kandji.ab', '202cb962ac59075b964b07152d234b70'),
-(21, 'Abdou', 'kandji', 2, 't@t.t', '202cb962ac59075b964b07152d234b70');
+INSERT INTO `user` (`id`, `firstname`, `lastname`, `role`, `username`, `password`) VALUES
+(1, 'Admin', 'TestAdmin', 1, 'admin@test.fr', '202cb962ac59075b964b07152d234b70'),
+(2, 'Firstname', 'Lastname', 2, 'user@test.fr', '81dc9bdb52d04dc20036dbd8313ed055');
 
 --
 -- Contraintes pour les tables déchargées

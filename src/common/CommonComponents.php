@@ -30,8 +30,7 @@ class CommonComponents{
     HTML;
   }
 
-  private static function htmlHeadComponent($title): string
-  {
+  private static function htmlHeadComponent($title): string{
     return <<<HTML
       <title>CATEMONORD | $title</title>
       <meta charset="utf-8">
