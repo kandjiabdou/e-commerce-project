@@ -18,10 +18,10 @@ Ce projet est un site e-commerce fait dans le cadre académique.
 Le projet est accompagné d'un fichier SQL 'e-commerce-project.sql' qui contient une instance de la base de donnée du site.
 Le modèle conseptuelle de donnée est aussi donné sous format PNG 'shemabdd.png'
 
-Deux utilisateur de teste sont créés avec la base de donnée :
+Deux utilisateur de teste sont créés dans la base de donnée :
 - un client :
 	- identifiant : user@test.fr
-	- mdp : 123
+	- mdp : 1234
 - un administrateur:
 	- identifiant : admin@test.fr
 	- mdp : 123

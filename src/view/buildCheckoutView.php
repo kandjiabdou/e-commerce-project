@@ -35,9 +35,15 @@ function buildCheckoutView($data): string{
 											name="numcart" placeholder="Numéro de carte">
 									</div>
 								</div>
+                                <div class="col-sm-12">
+									<div class="form-wrap">
+										<label>Date d'expiration</label>
+									</div>
+								</div>
 								<div class="col-sm-6">
 									<div class="form-wrap">
-										<select id="card-expiration-month" name="month">
+                                        <label>Mois </label>
+										<select id="card-expiration-month" name="month" class="checkoutDate col-sm-3">
 										  <option></option>
 										  <option>01</option>
 										  <option>02</option>
@@ -57,7 +63,8 @@ function buildCheckoutView($data): string{
 
 								<div class="col-sm-6">
 									<div class="form-wrap">
-										<select id="card-expiration-year" name="year">
+                                        <label>Année </label>
+										<select id="card-expiration-year" name="year" class="checkoutDate col-sm-3">
 										  <option></option>
 										  <option>2022</option>
 										  <option>2023</option>
