@@ -1,10 +1,8 @@
 <?php
 require_once 'common/AuthenticationService.php';
-class CommonComponents
-{
-  public static function render(string $component, $withNavbar = true, $connected = false)
-  {
-    $head = self::htmlHeadComponent();
+class CommonComponents{
+  public static function render(string $component, $withNavbar = true, $title = "Home"){
+    $head = self::htmlHeadComponent($title);
     $navbar = $withNavbar ? self::navbar() : '';
     $footer = $withNavbar ? self::htmlFooterComponent() : '';
     $footerCopyright = $withNavbar ? self::footerCopyright() : '';
@@ -32,10 +30,10 @@ class CommonComponents
     HTML;
   }
 
-  private static function htmlHeadComponent(): string
+  private static function htmlHeadComponent($title): string
   {
     return <<<HTML
-      <title>Fashion Shop | Home</title>
+      <title>CATEMONORD | $title</title>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <link rel="stylesheet" href="/e-commerce-project/src/assets/vendor/bootstrap/css/bootstrap.min.css">
@@ -46,12 +44,26 @@ class CommonComponents
       <link href="https://fonts.googleapis.com/css?family=Poppins:200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,900&display=swap" rel="stylesheet">
       <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
       <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+      <script type="text/javascript" src="/e-commerce-project/src/assets/js/ajout_panier.js"></script>
+
     HTML;
   }
 
   private static function navbar(): string
   {
-    $navLog = (new AuthenticationService())->isUserConnected() ? '<a href="?ctrl=Login&act=logout" title="se déconnecter"><i class="fa fa-sign-out"> Deconnexion</i></a>' : '<a href="?ctrl=Login" title="se connecter"><i class="fa fa-sign-in"> Connexion</i></a>' ;
+    if (session_status() === PHP_SESSION_NONE) {
+      session_start();
+    }
+    if(!isset($_SESSION['panier']))
+      $_SESSION['panier'] = array();
+    $nbProductTotal = 0;
+    foreach( $_SESSION['panier'] as $qty)
+      $nbProductTotal += $qty;
+      $connected = '<div class="option-item"><div class="order-btn"><a href="?ctrl=Order" title="Mes commandes"> commandes </a></div></div>';
+      $connected .= '<div class="option-item"><div class="logout-btn"><a href="?ctrl=Login&act=logout" title="se déconnecter"><i class="fa fa-sign-out"></i></a></div></div>';
+      $notConnected = '<div class="option-item"><div class="login-btn"><a href="?ctrl=Login" title="se connecter"><i class="fa fa-sign-in"> Connexion</i></a></div></div>';
+      $navLog = (new AuthenticationService())->isUserConnected() ? $connected : $notConnected ;
     return <<<HTML
       <div class="navbar-area">
         <div class="fashion-nav">
@@ -59,7 +71,7 @@ class CommonComponents
             <div class="row">
               <div class="header_menu_wrapper">
                 <nav class="navbar navbar-expand-md navbar-light">
-                  <a class="navbar-brand" href="/e-commerce-project/src/index.php"><img src="/e-commerce-project/src/assets/image/logo/logo.png" alt="logo"></a>
+                  <a class="navbar-brand" href="/e-commerce-project/src/index.php"><img src="/e-commerce-project/src/assets/image/logo.png" alt="logo"></a>
                   <div class="collapse navbar-collapse mean-menu" style="display: block;">
                     <ul class="navbar-nav">
                       <li class="nav-item"><a href="/e-commerce-project/src/index.php" class="nav-link active">Home</a></li>
@@ -70,14 +82,10 @@ class CommonComponents
                     <div class="others-option align-items-center">
                       <div class="option-item">
                         <div class="cart-btn">
-                          <a href="cart.html"><i class="fa fa-shopping-cart"></i><span>0</span></a>
+                          <a href="?ctrl=Panier&act=showCart" title="panier"><i class="fa fa-shopping-cart"></i><span id="nbProductInCart">$nbProductTotal</span></a>
                         </div>
                       </div>
-                      <div class="option-item">
-                        <div class="login-btn">
-                          $navLog
-                        </div>
-                      </div>
+                        $navLog
                     </div>
                   </div>
                 </nav>
@@ -118,10 +126,11 @@ HTML;
                 <div class="footer_list_wrapper">
                   <h2 class="wow fadeInDown animated">Menu</h2>
                   <ul class="footer_list">
-                  <li class="wow fadeInDown animated"><a href=""><i class="fa fa-angle-right" aria-hidden="true"></i> About Us</a></li>
-                  <li class="wow fadeInDown animated"><a href=""><i class="fa fa-angle-right" aria-hidden="true"></i> Products List</a></li>
-                  <li class="wow fadeInDown animated"><a href=""><i class="fa fa-angle-right" aria-hidden="true"></i> Panier</a></li>
-                  <li class="wow fadeInDown animated"><a href=""><i class="fa fa-angle-right" aria-hidden="true"></i> Contact</a></li>
+                  
+                  <li class="wow fadeInDown animated"><a href="?ctrl=Product"><i class="fa fa-angle-right" aria-hidden="true"></i> Produits</a></li>
+                  <li class="wow fadeInDown animated"><a href="?ctrl=Panier"><i class="fa fa-angle-right" aria-hidden="true"></i> Panier</a></li>
+                  <li class="wow fadeInDown animated"><a href="?ctrl=AboutUs"><i class="fa fa-angle-right" aria-hidden="true"></i> About Us</a></li>
+                  <li class="wow fadeInDown animated"><a href="?ctrl=Contact"><i class="fa fa-angle-right" aria-hidden="true"></i> Contact</a></li>
                   </ul>
                 </div>
               </div>
@@ -129,10 +138,10 @@ HTML;
                 <div class="footer_list_wrapper">
                   <h2>Articles</h2>
                   <ul class="footer_list">
-                    <li class="wow fadeInDown animated"><a href=""><i class="fa fa-angle-right" aria-hidden="true"></i>telephon</a> </li>
-                    <li class="wow fadeInDown animated"><a href=""><i class="fa fa-angle-right" aria-hidden="true"></i>ordinateur</a> </li>
-                    <li class="wow fadeInDown animated"><a href=""><i class="fa fa-angle-right" aria-hidden="true"></i>camera</a> </li>
-                    <li class="wow fadeInDown animated"><a href=""><i class="fa fa-angle-right" aria-hidden="true"></i>objet connecté</a> </li>
+                    <li class="wow fadeInDown animated"><a href="?categoryList%5B%5D=1&ctrl=Product"><i class="fa fa-angle-right" aria-hidden="true"></i>Téléphone</a> </li>
+                    <li class="wow fadeInDown animated"><a href="?categoryList%5B%5D=2&ctrl=Product"><i class="fa fa-angle-right" aria-hidden="true"></i>Ordinateur</a> </li>
+                    <li class="wow fadeInDown animated"><a href="?categoryList%5B%5D=3&ctrl=Product"><i class="fa fa-angle-right" aria-hidden="true"></i>Camera</a> </li>
+                    <li class="wow fadeInDown animated"><a href="?categoryList%5B%5D=4&ctrl=Product"><i class="fa fa-angle-right" aria-hidden="true"></i>Montre</a> </li>
                   </ul>
                 </div>
               </div>
@@ -141,8 +150,8 @@ HTML;
                   <h2 class="wow fadeInDown animated">Application</h2>
                   <p class="wow fadeInDown animated">Télécharger nos applications</p>
                   <div class="download_btn_wrapper">
-                    <a href="#"><img src="assets/image/App-Store.png" class="img-responsive wow fadeInDown animated" alt="App_Store_img"></a>
-                    <a href="#"><img src="assets/image/Google-Play.png" class="img-responsive wow fadeInDown animated" alt="Google_Play_img"></a>
+                    <a href="https://play.google.com/store/apps/details?id=com.kandjiabdou.jeupions12"><img src="assets/image/App-Store.png" class="img-responsive wow fadeInDown animated" alt="App_Store_img"></a>
+                    <a href="https://play.google.com/store/apps/details?id=com.kandjiabdou.jeupions12"><img src="assets/image/Google-Play.png" class="img-responsive wow fadeInDown animated" alt="Google_Play_img"></a>
                   </div>
                 </div>
               </div>

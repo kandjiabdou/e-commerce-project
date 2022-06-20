@@ -12,7 +12,6 @@ function buildAllProductView($data): string
   extract($data);
   $breadcrumb = breadcrumb();
   $filtre = filtre($sort, $categorys, $minPrice, $maxPrice, $categoryFilter);
-  $script = script();
   $btnFitre = btnFiltre();
   $trier = trier($sort, $minPrice, $maxPrice, $categoryFilter);
   $listProducts = allProducts($products);
@@ -20,6 +19,7 @@ function buildAllProductView($data): string
 
   return <<<HTML
     <!-- breadcrumb -->
+    <div id="err"><div>
     $breadcrumb
     <div id="content" class="products_page">
       <!-- products -->
@@ -30,8 +30,6 @@ function buildAllProductView($data): string
             <!--Filtre-->
               $filtre
             </div> <!-- cd-filter -->
-            <!--script-->
-            $script
             <div id="ProductList" class="col-sm-9">
               <div class="eb_left">
                 <div class="product-list-top">
@@ -43,7 +41,10 @@ function buildAllProductView($data): string
                 </div>
                 <!-- single product-list -->
                 <!--1 : allProduct-->
-                $listProducts
+                <div id="product_group">
+                  $listProducts
+                </div>
+                
                 <!-- Pagination -->
                 $pagination
               </div>
@@ -60,10 +61,10 @@ function breadcrumb(){
 		<div class="container-fluid">
 			<div class="row">
 				<div class="breadcrumb-content">
-					<h2>products</h2>
+					<h2>Produits</h2>
 					<ul>
 						<li><a href="index.php">Home</a></li>
-						<li><a href="">products</a></li>
+						<li><a href="">produits</a></li>
 					</ul>
 				</div>
 			</div>
@@ -133,7 +134,11 @@ function filtre($sort, $categorys, $minPrice, $maxPrice, $categoryFilter){
           </div>
         </div>
       </div>
-      <div><span><i class="fa fa-check"></i><input type="submit" value="Appliquer"/></span></div>
+      <div id="btnFilterSubmit" class="col-sm-6">
+        <button type="submit" class="btn ">
+          Appliquer
+        </button>      
+        </div>
       <input type="hidden" name="ctrl" value="Product">
       <input type="hidden" name="act" value="allProduct">
       $htmlSort
@@ -176,29 +181,15 @@ function trier( $sort, $minPrice, $maxPrice, $categoryFilter){
 HTML;
 }
 
-function script(){
-  return <<<HTML
-  <script>
-    function ShowAndHideFilter() {
-      var x = document.getElementById('filterProduct');
-      var c = document.getElementById('ProductList');
-      if (x.style.display == 'none') {
-        x.style.display = 'block';
-        c.className = "col-sm-9";
-      } else {
-        x.style.display = 'none';
-        c.className = "col-sm-12";
-      }
-    }
-  </script>
-HTML;
-}
 function btnFiltre(){
   return <<<HTML
   <div class="show-wrapper">
     <div class="col-md-3 col-xs-3">
       <div class="form-group input-group input-group-sm wow fadeInDown pull-left">
-          <button type="button" class="btn wow fadeInDown animated" onclick="ShowAndHideFilter()" title="Add to Cart"><span><i class="fa fa-filter"></i> Filtre</span></button>
+          <button type="button" class="btn wow fadeInDown animated" onclick="ShowAndHideFilter()" title="Filtre">
+          <span id="filterLeftRight"><i class="fa fa-angle-left"></i><i class="fa fa-angle-left"></i></span>
+          <span> Filtre <i class="fa fa-filter"></i></span>
+          </button>
       </div>
     </div>
   </div>
@@ -208,28 +199,25 @@ HTML;
 function allProducts($allProducts){
   $render = '';
   if (empty($allProducts)) {
-    $render = '<strong>Aucun produit dans cette sous catégorie</strong>';
+    $render = '<strong>Aucun produit trouvé</strong>';
   } else {
     foreach ($allProducts as $product) {
       $newPrice = $product['prix']*1.15;
-      $render .= '<div class="col-sm-4">
-        <div class="product-thumb">
-          <div class="image wow fadeInDown animated">
-            <a href="?ctrl=Product&act=SingleProduit&produitID='.$product['produitID'].'">
-              <img class="wow fadeInDown animated imgProduct" src="'.$product['cheminimage'].'" alt="'.$product['nomProduit'].'" title="'.$product['nomProduit'].'" width="100%">
-            </a>
-          </div>
-          <div class="caption">
-            <div class="rate-and-title">
-              <h4 class="wow fadeInDown animated"><a href="?ctrl=Product&act=SingleProduit&produitID='.$product['produitID'].'">'.$product['nomProduit'].'</a>
-              </h4>
-              <p class="price wow fadeInDown animated"><span
-                  class="price-old">'.$newPrice.'</span> <span
-                  class="price-new">'.$product['prix'].'</span></p>
-              <button type="button" class="btn wow fadeInDown animated" onclick=""
-                title="Add to Cart"><span><i class="fa fa-shopping-cart"></i> Add to
-                  Cart</span></button>
-            </div>
+      $render .= '<div class="single_product col-sm-4">
+        <div class="image wow fadeInDown animated">
+          <a href="?ctrl=Product&act=SingleProduit&produitID='.$product['produitID'].'">
+            <img class="wow fadeInDown animated imgProduct" src="assets/image/'.$product['cheminimage'].'" alt="'.$product['nomProduit'].'" title="'.$product['nomProduit'].'" width="100%">
+          </a>
+        </div>
+        <div class="caption">
+          <div class="rate-and-title">
+            <h4 class="wow fadeInDown animated"><a href="?ctrl=Product&act=SingleProduit&produitID='.$product['produitID'].'">'.$product['nomProduit'].'</a>
+            </h4>
+            <p class="price wow fadeInDown animated"><span
+                class="price-old">'.$newPrice.'</span> <span
+                class="price-new">'.$product['prix'].'</span></p>
+            <button value="'.$product['produitID'].'" type="button" class="btn_ajout_panier btn wow fadeInDown animated"
+              title="Ajouter au panier"><span><i class="fa fa-shopping-cart"></i> Ajouter au panier </span></button>
           </div>
         </div>
       </div>';

@@ -26,8 +26,7 @@ class UserModel{
     return ($user !== false);
   }
 
-  public function createUser($firstName, $lastName, $username, $password): void
-  {
+  public function createUser($firstName, $lastName, $username, $password): void{
     $request = $this->database->prepare('INSERT INTO user(firstname, lastname, role, username, password) VALUES (:firstname, :lastname, 2, :username, md5(:password))');
     $request->execute([
       'firstname' => $firstName,
@@ -39,6 +38,13 @@ class UserModel{
 
   public function getUserRole(string $username):int{
     $request = $this->database->prepare('SELECT role FROM user WHERE username = :username');
+    $request->execute(['username' => $username]);
+    $res = $request->fetch(PDO::FETCH_NUM);
+    return $res[0];
+  }
+
+  public function getUserID(string $username):int{
+    $request = $this->database->prepare('SELECT id FROM user WHERE username = :username');
     $request->execute(['username' => $username]);
     $res = $request->fetch(PDO::FETCH_NUM);
     return $res[0];

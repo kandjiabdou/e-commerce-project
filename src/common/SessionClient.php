@@ -2,9 +2,8 @@
 class SessionClient {
   private static $instance = null;
 
-  private function __construct()
-  {
-    session_start();
+  private function __construct(){
+    if (session_status() === PHP_SESSION_NONE) session_start();
   }
 
   public function set($key, $value): void {
@@ -31,5 +30,16 @@ class SessionClient {
       self::$instance = new SessionClient();
     }
     return self::$instance;
+  }
+
+  public function addProductToCart($pid): bool {
+    var_dump($_SESSION);
+    if(!array_key_exists($pid, $_SESSION['panier'])){
+      $_SESSION['panier'][$pid]=1;
+      var_dump($_SESSION);
+      return true;
+    }
+    var_dump($_SESSION);
+    return false;
   }
 }

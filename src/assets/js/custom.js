@@ -1,17 +1,3 @@
-
-			
-// Dropdown Menu Fade    
-jQuery(document).ready(function(){
-    $(".dropdown").hover(
-        function() { $('.dropdown-menu', this).stop().fadeIn("fast");
-        },
-        function() { $('.dropdown-menu', this).stop().fadeOut("fast");
-    });
-});
-
-// Dropdown Menu Fade end   
-
-  // for counter 
 //-- Plugin implementation
 (function($) {
   $.fn.countTo = function(options) {
@@ -80,14 +66,28 @@ $(window).scroll(function() {
   }
 });
 
-
-//mobile menu script
-
-
-function openNav() {
-  document.getElementById("mySidenav").style.width = "100%";
-}
-
-function closeNav() {
-  document.getElementById("mySidenav").style.width = "0";
+function ShowAndHideFilter() {
+  var x = document.getElementById('filterProduct');
+  var c = document.getElementById('ProductList');
+  var f = document.getElementById('filterLeftRight');
+  var allProducts = document.getElementsByClassName("single_product");
+  if (x.style.display == 'none') {
+    f.innerHTML = '<i class="fa fa-angle-left"></i><i class="fa fa-angle-left"></i>';
+    x.style.display = 'block';
+    c.className = "col-sm-9";
+    for(var i=0; i<allProducts.length; i++){
+      var e = allProducts[i];
+      e.classList.add("col-sm-4");
+      e.classList.remove("col-sm-3");
+    }
+  } else {
+    f.innerHTML = '<i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i>';
+    x.style.display = 'none';
+    c.className = "col-sm-12";
+    for(var i=0; i<allProducts.length; i++){
+      var e = allProducts[i];
+      e.classList.add("col-sm-3");
+      e.classList.remove("col-sm-4");
+    }
+  }
 }

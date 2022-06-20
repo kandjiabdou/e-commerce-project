@@ -2,7 +2,7 @@
 require_once "controller/Controller.php"; //Inclusion de la classe Controller
 require_once 'common/CommonComponents.php';
 
-$controllers = ["Home","Product", "Login", "Signin","SingleProduit", "Admin"]; //Liste des contrôleurs
+$controllers = ["Home","Product", "Panier", "Login", "Signin","SingleProduit", "Admin", "Checkout", "Order"]; //Liste des contrôleurs
 $controller_default = "Home"; //Nom du contrôleur par défaut
 
 //On teste si le paramètre controller existe et correspond à un contrôleur de la liste $controllers
@@ -12,10 +12,10 @@ if (isset($_GET['ctrl']) and in_array($_GET['ctrl'], $controllers)) {
     $nom_controller = $controller_default;
 }
 
-$authenticationService = new AuthenticationService();
-$connected = $authenticationService->isUserConnected();
-if ($connected) {
-    $role = $authenticationService->getSessionUserRole();
+if (session_status() === PHP_SESSION_NONE) session_start();
+
+if(isset($_SESSION['isConnected']) && $_SESSION['isConnected']){ // connecté
+    $role = $_SESSION['role'];
     // si l'utilisateur est connecté
     // mais veut acceder à la page admin
     if($role == 2 and $nom_controller == "Admin" ) $nom_controller = "Home";
@@ -44,7 +44,7 @@ if (file_exists($nom_fichier)) {
     $controller = new $nom_classe();
     $action = $controller->action;
     $composanthtml = $controller->$action();
-    CommonComponents::render($composanthtml, $controller->navBar);
+    CommonComponents::render($composanthtml, $controller->navBar, $nom_controller);
 } else {
     include_once 'view/build404View.php';
     $html404 = build404View();

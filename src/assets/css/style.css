@@ -10,7 +10,7 @@ body
 h1, h2, h3, h4, h5, h6 {
 	line-height: 1.1;
 	font-weight:600;
-	color: #c8ad83;
+	color: #63dbff;
 	margin:0 0 15px 0;
 	padding:0;
 	text-transform:capitalize;
@@ -45,7 +45,7 @@ a {
 }
 a:hover {
 	text-decoration: none;
-	color: #cbb18a;
+	color: #63dbff;
 }
 .row {
   padding-left: 7.875rem;
@@ -70,7 +70,7 @@ a:hover {
     padding: 10px 15px;
     font-size: 13px;
     border-radius: 4px;
-    background: #cbb18a;
+    background: #63dbff;
     color: #ffffff;
     text-transform: uppercase;
 	-webkit-transition: all 0.5s;
@@ -110,14 +110,14 @@ Header Area CSS
 }
 .top-header-social.header_account li a i
 {
-    color: #cbb18a;
+    color: #63dbff;
     margin-right: 3px;
 }
 .top-header-social.header_account li {
     margin-right: 5px;
 }
 .top-header-social.header_account li a:hover {
-  color: #cbb18a;
+  color: #63dbff;
   -webkit-transform:none;
   transform: none;
 }
@@ -135,7 +135,7 @@ Header Area CSS
 
 .top-header-social li a {
   display: block;
-  color: #cbb18a;
+  color: #63dbff;
   font-size: 20px;
 }
 
@@ -165,7 +165,7 @@ Header Area CSS
 }
 
 .top-header-contact-info li i {
-	color: #cbb18a;
+	color: #63dbff;
     margin-right: 3px;
 }
 
@@ -280,9 +280,9 @@ Header Area CSS
 }
 
 .navbar-area.navbar-style-two.is-sticky .fashion-nav .navbar .others-option .option-item .default-btn:hover {
-  background-color: #cbb18a;
+  background-color: #63dbff;
   color: #ffffff;
-  border-color: #cbb18a;
+  border-color: #63dbff;
 }
 
 .navbar-area.navbar-style-three {
@@ -319,8 +319,8 @@ Header Area CSS
 
 .navbar-area.navbar-style-three .fashion-nav .navbar .others-option .option-item .default-btn:hover {
   color: #ffffff;
-  border-color: #cbb18a;
-  background-color: #cbb18a;
+  border-color: #63dbff;
+  background-color: #63dbff;
 }
 
 .navbar-area.navbar-style-three .container-fluid {
@@ -367,7 +367,7 @@ Header Area CSS
 	text-transform: capitalize;
 }
 .sidenav a:hover {
-  color: #cbb18a;
+  color: #63dbff;
 }
 
 .sidenav .closebtn {
@@ -379,7 +379,7 @@ Header Area CSS
 }
 .menu_open
 {
-	color: #cbb18a;
+	color: #63dbff;
 	font-size: 24px;
 	cursor: pointer;
 	margin-right: 20px;
@@ -536,7 +536,7 @@ Header Area CSS
 }
 
 .fashion-nav .navbar .navbar-nav .nav-item a:hover, .fashion-nav .navbar .navbar-nav .nav-item a:focus, .fashion-nav .navbar .navbar-nav .nav-item a.active {
-  color: #cbb18a;
+  color: #63dbff;
 }
 
 .fashion-nav .navbar .navbar-nav .nav-item:last-child a {
@@ -548,7 +548,7 @@ Header Area CSS
 }
 
 .fashion-nav .navbar .navbar-nav .nav-item:hover a, .fashion-nav .navbar .navbar-nav .nav-item.active a {
-  color: #cbb18a;
+  color: #63dbff;
 }
 .others-option {
 	position: relative;
@@ -592,7 +592,7 @@ Header Area CSS
 }
 
 .others-option .option-item {
-	color: #cbb18a;
+	color: #63dbff;
 }
 
 .others-option .option-item .cart-btn {
@@ -617,13 +617,13 @@ Header Area CSS
     line-height: 17px;
     border-radius: 50%;
     color: #ffffff;
-    background-color: #cbb18a;
+    background-color: #63dbff;
     font-size: 10px;
     font-weight: 600;
 }
 
 .others-option .option-item .cart-btn a:hover {
-	color: #cbb18a;
+	color: #63dbff;
 }
 
 .others-option .option-item .default-btn {
@@ -633,9 +633,9 @@ Header Area CSS
 }
 
 .others-option .option-item .default-btn:hover {
-	background-color: #cbb18a;
+	background-color: #63dbff;
 	color: #ffffff;
-	border-color: #cbb18a;
+	border-color: #63dbff;
 }
 
 /* silder */
@@ -665,7 +665,7 @@ html body .owl-wrapper-outer {
    border-color:#ffffff;
 }
 html body .owl-carousel .owl-buttons .owl-prev, html body .owl-carousel .owl-buttons .owl-next {
-    background: #cbb18a;
+    background: #63dbff;
     width: 40px;
     height: 40px;
     line-height: 40px;
@@ -706,12 +706,12 @@ html body .owl-controls .owl-page span {
    border-color:#000;
 }
 html body .owl-controls .owl-page.active span {
-    background: #cbb18a;
-	border-color:#cbb18a;
+    background: #63dbff;
+	border-color:#63dbff;
 }
 html body .owl-controls .owl-page.active
 {
-	border-color:#cbb18a;
+	border-color:#63dbff;
 }
 html body .owl-carousel {
     margin: 0;
@@ -946,7 +946,7 @@ html body .owl-carousel {
 }
 #blogs.blog_section .blog_inner_matter .admin_and_comments i
 {
-    color: #cbb18a;
+    color: #63dbff;
 	margin-right: 2px;
 }
 #blogs.blog_section .blog_inner_matter .admin_and_comments .blog_admin
@@ -964,7 +964,7 @@ html body .owl-carousel {
     position: absolute;
     top: 0;
     right: 0;
-    background: #cbb18a;
+    background: #63dbff;
     color: #ffffff;
     padding: 5px 10px;
     font-size: 12px;
@@ -1071,7 +1071,7 @@ html body .owl-carousel {
     top: -375px;
     width: 750px;
     height: 750px;
-    background: #cbb18a;
+    background: #63dbff;
     content: '';
     z-index: -1;
     -webkit-transform: rotate(45deg);
@@ -1116,7 +1116,7 @@ html body .owl-carousel {
     margin-right: 3px;
 }
 #footer .footer_matter .footer_list li a:hover {
-    color: #cbb18a;
+    color: #63dbff;
     -webkit-transition: all .5s;
     -moz-transition: all .5s;
     -ms-transition: all .5s;
@@ -1135,7 +1135,7 @@ html body .owl-carousel {
 
 #footer .footer_matter .footer_logo_wrapper h3 {
     font-size: 26px;
-    color: #cbb18a;
+    color: #63dbff;
     font-weight: bold;
     padding-top: 23px;
     margin-left: 10px;
@@ -1178,7 +1178,7 @@ html body .owl-carousel {
 }
 
 #footer .footer_matter .footer_logo_wrapper li a:hover {
-    background: #cbb18a;
+    background: #63dbff;
     color: #ffffff;
     -webkit-transition: all 0.5s;
     -o-transition: all 0.5s;
@@ -1211,7 +1211,7 @@ html body .owl-carousel {
 }
 .footer_copyright a
 {
-    color: #cbb18a;
+    color: #63dbff;
 }
 .footer_copyright a:hover
 {
@@ -1264,7 +1264,7 @@ html body .owl-carousel {
     display: block;
     height: 43px;
     line-height: 40px;
-    background: #cbb18a; 
+    background: #63dbff; 
 	-webkit-transition: all 0.5s;
     -o-transition: all 0.5s;
     -ms-transition: all 0.5s;
@@ -1286,10 +1286,7 @@ html body .owl-carousel {
 {
     padding: 50px 0;
 }
-#products.products_section .product-thumb
-{
-    margin-bottom: 30px;
-}
+
 #products.products_section .product-thumb .image
 {
     margin-bottom: 20px;
@@ -1299,32 +1296,21 @@ html body .owl-carousel {
 	border-radius: 10px;
 	position: relative;
 }
-#products.products_section .product-thumb .image img 
-{
-	width:100%;
-    height: 16.323vw;
-}
 #products.products_section .product-thumb .caption
 {
     text-align: center;
 }
-#products.products_section .product-thumb .caption h4
-{
-    margin-bottom: 8px;
-    height: 7vw;
-}
-#products.products_section .product-thumb .caption .price .price-old {
+.price-old {
     color: #797979;
     text-decoration: line-through;
     margin-right: 10px;
-    font-size: 13px;
+    font-size: 15px;
 }
-#products.products_section .product-thumb .caption .price .price-new
-{
+.price-new{
 	text-align: center;
     font-size: 18px;
     margin-top: 7px;
-    color: #cbb18a;
+    color: #63dbff;
 }
 
 #products.products_section .product-thumb .button-group {
@@ -1378,7 +1364,7 @@ html body .owl-carousel {
 	border-right:0px solid #eeeeee;
 }
 #products.products_section .product-thumb .button-group button:hover {
-    background: #cbb18a;
+    background: #63dbff;
     color: #fff;
 }
 #products.products_section .product-thumb .button-cart:before {
@@ -1409,94 +1395,6 @@ html body .owl-carousel {
 }
 #products.products_section .product-thumb .caption button i {
     margin-right:3px;
-}
-/*
-breadcrumb CSS
-*/
-.main_breadcrumb {
-	position: relative;
-	z-index: 1;
-	background-color: #cbb18a;
-	background-image: url(../image/astrologers-work1.jpg);
-	background-position: center center;
-	background-repeat: no-repeat;
-	background-size: cover;
-	padding-top: 20px;
-	padding-bottom:20px;
-	background-attachment: fixed;
-}
-
-.main_breadcrumb:before {
-	width: 100%;
-	height: 100%;
-	background-color: #79797996;
-	opacity: 0.75;
-	content: '';
-	position: absolute;
-	z-index: -1;
-	left: 0;
-	top: 0;
-}
-
-.breadcrumb-content h2 {
-	text-transform: capitalize;
-    margin-bottom: 0;
-    color: #ffffff;
-    font-size: 40px;
-    font-weight: 800;
-}
-
-.breadcrumb-content ul {
-	padding-left: 0;
-	list-style-type: none;
-	margin-top: 15px;
-	margin-bottom: 0;
-}
-
-.breadcrumb-content ul li {
-	display: inline-block;
-	margin-right: 20px;
-	color: #ffffff;
-	position: relative;
-	font-size: 16px;
-	font-weight: 600;
-}
-
-.breadcrumb-content ul li a {
-	display: inline-block;
-	color: #ffffff;
-}
-.breadcrumb-content ul li a:hover {
-    color: #cbb18a;
-}
-.breadcrumb-content ul li:before {
-	content: '';
-	position: absolute;
-	right: -12px;
-	top: 7px;
-	width: 1px;
-	height: 12px;
-	background-color: #ffffff;
-}
-
-.breadcrumb-content ul li:last-child {
-	margin-right: 0;
-}
-
-.breadcrumb-content ul li:last-child:before {
-	display: none;
-}
-
-
-/*
-	about us CSS
-*/
-.about_page #about_us.about_section {
-    padding: 0px 0 50px;
-    background: #ffffff;
-}
-#content.about_page {
-    padding: 50px 0 0;
 }
 
 /*
@@ -1537,7 +1435,7 @@ breadcrumb CSS
 }
 
 .pagination-section .page-numbers:hover, .pagination-section .page-numbers:focus, .pagination-section .page-numbers.current {
-	color: #cbb18a;
+	color: #63dbff;
 }
 
 .pagination-section .page-numbers.prev {
@@ -1619,12 +1517,12 @@ breadcrumb CSS
 }
 #category ul li a:hover
 {
-	color:#cbb18a;
+	color:#63dbff;
 }
 #category ul li a i
 {
     margin-right: 5px;
-    color: #cbb18a;
+    color: #63dbff;
 	  -webkit-transition: all 0.5s;
     -o-transition: all 0.5s;
     -ms-transition: all 0.5s;
@@ -1647,7 +1545,7 @@ breadcrumb CSS
 }
 .forecast_page .eb_matter h2 i
 {
-	color:#cbb18a;
+	color:#63dbff;
 	margin-right:5px;
 }
 .forecast_page .eb_matter p
@@ -1849,12 +1747,13 @@ breadcrumb CSS
 }
 #cart .table-custom-responsive + .group-justify {
     margin-top: 35px;
+    margin-bottom: 50px;
 }
 #cart .group-justify {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-end;
 }
 #cart .eb-form input
 {
@@ -1891,14 +1790,14 @@ breadcrumb CSS
 }
 #cart .eb-form-inline .form-button .btn:hover
 {
-	background: #cbb18a;
+	background: #63dbff;
 	color: #ffffff;
 }
 #cart .group-xl > * {
     display: inline-block;
     margin-top: 0;
     margin-bottom: 30px;
-    margin-left: 40px;
+    margin-right: 40px;
 }
 #cart .group-middle {
     display: inline-flex;
@@ -2167,7 +2066,7 @@ breadcrumb CSS
 	background: transparent;
     border: 0;
     outline: 0;
-	color: #cbb18a;
+	color: #63dbff;
 }
 .custom button.items-count:hover {
 	color: #37a4dd;
@@ -2224,7 +2123,6 @@ breadcrumb CSS
     height: 38px;
     border: none;
     line-height: 36px;
-    vertical-align: top;
     text-align: center;
     border-radius: 5px;
     padding: 0px 15px;
@@ -2246,7 +2144,6 @@ breadcrumb CSS
     height: 38px;
     border: 0px #ececec solid;
     line-height: 36px;
-    vertical-align: top;
     text-align: center;
     border-radius: 5px;
     padding: 0px 15px;
@@ -2263,12 +2160,10 @@ breadcrumb CSS
 	color: #333;
     line-height: normal;
     font-weight: normal;
-    vertical-align: top;
     display: block;
     height: 38px;
     border: 0px #ececec solid;
     line-height: 36px;
-    vertical-align: top;
     text-align: center;
 	border-radius:5px;
 	padding:0px 15px;
@@ -2390,91 +2285,7 @@ ul.shipping-pro li {
 {
     margin-top: 25px;
 }
-.comment-respond .comment-reply-title {
-    display: block;
-    font-size: 16px;
-    line-height: 20px;
-    color: #000000;
-    padding-bottom: 15px;
-    margin: 50px 0 30px 0;
-    border-bottom: 1px solid #eee;
-}
-.comment-respond .stars {margin-bottom:20px}
 
-.comment-respond .stars a:first-child {
-    padding-left: 0;
-}
-.comment-respond .stars a {
-    font-size: 0;
-    color: #ccc;
-    display: inline-block;
-    border-right: 1px solid #e6e6e6;
-    padding: 0 10px;
-    line-height: 12px;
-}
-
-.comment-respond .stars a.star-1:before {
-    content: "\f005";
-}
-
-.comment-respond .stars a.star-2:before {
-    content: "\f005\f005";
-}
-
-.comment-respond .stars a.star-3:before {
-    content: "\f005\f005\f005";
-}
-
-.comment-respond .stars a.star-4:before {
-    content: "\f005\f005\f005\f005";
-}
-
-.comment-respond .stars a.star-5:before {
-    content: "\f005\f005\f005\f005\f005";
-}
-.eb-Reviews .comment-respond .stars a:hover {
-    color: #fed700;
-}
-
-.comment-respond .form-submit input[type=submit] {
-    display: inline-block;
-    height: 44px;
-    line-height: 44px;
-    padding: 0 25px;
-    border-radius: 5px;
-	color:#ffffff;
-	border:none;
-	width:auto
-}
-.comment-respond .stars a:before {
-    font-family: 'FontAwesome';
-    font-size: 12px;
-    display: inline-block;
-    letter-spacing: 2px;
-}
-.comment-respond .comment-form textarea {
-    padding: 8px 10px;
-    outline: none;
-    color: #999;
-    border: 1px solid #eee;
-    width: 100%;
-    border-radius: 5px;
-}
-.comment-respond .comment-form input {
-    padding: 8px 10px;
-    outline: none;
-    color: #999;
-    border: 1px solid #eee;
-    width: 100%;
-    border-radius: 5px;
-}
-.comment-respond .comment-form label {
-    font-size: 14px;
-    font-weight: 600;
-    line-height: 19px;
-    color: #333333;
-    display: block;
-}
 #products.related_product
 {
 	padding:50px 0 0 0;
@@ -2556,7 +2367,79 @@ ul.shipping-pro li {
     margin-top: 30px;
     padding: 18px 40px;
 }
+/*breadcrumb*/
+.main_breadcrumb {
+	position: relative;
+	z-index: 1;
+	background-color: #63dbff;
+	background-image: url(../image/astrologers-work1.jpg);
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	padding-top: 20px;
+	padding-bottom:20px;
+	background-attachment: fixed;
+}
 
+.main_breadcrumb:before {
+	width: 100%;
+	height: 100%;
+	background-color:#63dbff;
+	opacity: 0.75;
+	content: '';
+	position: absolute;
+	z-index: -1;
+	left: 0;
+	top: 0;
+}
+.breadcrumb-content h2 {
+	text-transform: capitalize;
+    margin-bottom: 0;
+    color: #000000;
+    font-size: 40px;
+    font-weight: 800;
+}
+
+.breadcrumb-content ul {
+	padding-left: 0;
+	list-style-type: none;
+	margin-top: 15px;
+	margin-bottom: 0;
+}
+
+.breadcrumb-content ul li {
+	display: inline-block;
+	margin-right: 20px;
+	color: #000000;
+	position: relative;
+	font-size: 16px;
+	font-weight: 600;
+}
+
+.breadcrumb-content ul li a {
+	display: inline-block;
+	color: #000000;
+}
+.breadcrumb-content ul li a:hover {
+    color: #37a4dd;
+}
+.breadcrumb-content ul li:before {
+	content: '';
+	position: absolute;
+	right: -12px;
+	top: 7px;
+	width: 1px;
+	height: 12px;
+	background-color: #000000;
+}
+
+.breadcrumb-content ul li:last-child {
+	margin-right: 0;
+}
+
+.breadcrumb-content ul li:last-child:before {
+	display: none;
+}
 /* register_page  */
 #register .signInclass
 {
@@ -2580,7 +2463,7 @@ ul.shipping-pro li {
 #register ul li i
 {
     margin-right: 5px;
-    color: #c6ab83;
+    color: #37a4dd;
 }
 
 #register .registration p {
@@ -2620,14 +2503,54 @@ ul.shipping-pro li {
 	margin: auto;
 }
 #ul-filter{
-    padding: 10%;
     list-style: none;
 }
 #filterProduct {
-    background-color: #E7E0D9;
+    background-color: #C9FFEE;
     padding: 2%;
-    border-radius: 5%;
+    border-radius: 2%;
 }
 .form-wrap {
     display: flex;
+}
+.single_product {
+    height: calc((50vw) * 0.5625);
+    margin-bottom: 2%;
+    display: flex;
+    flex-direction: column;
+}
+.caption {
+    margin-top: auto;
+    text-align: center;
+}
+.animated {
+    margin-bottom: auto;
+    flex-grow: 1;
+}
+.imgProduct{
+    height: 15vw;
+    margin-top: 10%;
+}
+input.input_crease{
+    border: none;
+    text-align: center;
+    width: 40px;
+}
+input.input_crease:focus{
+    outline: none;
+}
+input.input_crease::-webkit-outer-spin-button,
+input.input_crease::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input.input_crease[type=number].input_crease {
+  -moz-appearance: textfield;
+}
+.form_display{display: flex;}
+.elem_qty{display: inline-block;}
+
+#btnFilterSubmit{
+margin-top: 10px;
 }

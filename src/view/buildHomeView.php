@@ -11,8 +11,7 @@ function buildHomeView($productList): string{
 		<div class="container-fluid">
 			<div class="heading_wrapper wow fadeInDown animated">
 				<h2 class="wow fadeInDown animated">Notre sélection pour vous</h2>
-				<p class="wow fadeInDown animated">Lorem Ipsum is simply dummy text of the printing and typesetting
-					industry. Lorem Ipsum has been the industry's standard dummy text </p>
+				<p class="wow fadeInDown animated">Faites des bonnes affaires à CATEMONORD ! Profitez des meilleurs prix toute l'année avec nos ventes flash, nos petits prix, nos bons plans et nos déstockages dans tous nos rayons, téléphone, ordinateur, montre, caméra.</p>
 			</div>
 			<div class="row">
 				<div id="product" class="owl-carousel owl-theme">
@@ -58,7 +57,7 @@ function buildproductSliderView($productList): string{
                     <div class="product-thumb">
                         <div class="image wow fadeInDown animated">
                             <a href="?ctrl=Product&act=SingleProduit&produitID='.$product['produitID'].'"><img class="wow fadeInDown animated"
-                                    src="'.$product['cheminimage'].'" alt="Kundli Dosha"
+                                    src="assets/image/'.$product['cheminimage'].'" alt="Kundli Dosha"
                                     title="Kundli Dosha" width="100%"></a>
                         </div>
                         <div class="caption">
@@ -68,9 +67,8 @@ function buildproductSliderView($productList): string{
                                     <span class="price-old">'.$product['prix'].'</span>
                                     <span class="price-new">'.$newPrice.'</span>
                                 </p>
-                                <button type="button" class="btn wow fadeInDown animated" onclick=""
-                                    title="Add to Cart"><span><i class="fa fa-shopping-cart"></i> Add to
-                                        Cart</span></button>
+                                <button type="button" class="btn_ajout_panier btn wow fadeInDown animated"
+                                    value="'.$product['produitID'].'" title="Ajouter au panier"><span><i class="fa fa-shopping-cart"></i>Ajouter au panier </span></button>
                             </div>
                         </div>
                     </div>

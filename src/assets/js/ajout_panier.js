@@ -1,41 +1,87 @@
 (function ($) {
-    $(document).on('click', '.single_add_to_cart_button', function (e) {
+    $(document).on('click', '.btn_ajout_panier', function(e){
         e.preventDefault();
-        var $thisbutton = $(this),
-                $form = $thisbutton.closest('form.cart'),
-                id = $thisbutton.val(),
-                product_qty = $form.find('input[name=quantity]').val() || 1,
-                product_id = $form.find('input[name=product_id]').val() || id,
-                variation_id = $form.find('input[name=variation_id]').val() || 0;
-
+        var $thisbutton = $(this);
+        id = $thisbutton.val();
         var data = {
-            action: 'woocommerce_ajax_add_to_cart',
-            product_id: product_id,
-            product_sku: '',
-            quantity: product_qty,
-            variation_id: variation_id,
+            action: 'add_product',
+            productID: id,
         };
-
-        $(document.body).trigger('adding_to_cart', [$thisbutton, data]);
 
         $.ajax({
             type: 'post',
-            url: wc_add_to_cart_params.ajax_url,
+            url: "Panier.php",
             data: data,
-            beforeSend: function (response) {
-                $thisbutton.removeClass('added').addClass('loading');
-            },
-            complete: function (response) {
-                $thisbutton.addClass('added').removeClass('loading');
-            },
             success: function (response) {
+                $("#nbProductInCart").html(response);
+            },
+        });
 
-                if (response.error && response.product_url) {
-                    window.location = response.product_url;
-                    return;
-                } else {
-                    $(document.body).trigger('added_to_cart', [response.fragments, response.cart_hash, $thisbutton]);
+        return false;
+    });
+
+    $(document).on('click', '.btn_supprime_produit', function(e){
+        e.preventDefault();
+        var $thisbutton = $(this);
+        id = $thisbutton.val();
+
+        var data = {
+            action: 'delete_product',
+            productID: id,
+        };
+
+        $.ajax({
+            type: 'post',
+            url: "Panier.php",
+            data: data,
+            success: function (response) {
+                $("#nbProductInCart").html(response);
+                if(response == 0)
+                    $("#listPoduitPanier").html("<p>Aucun produit sur votre panier !<p>");
+                else{
+                    var minusPrice = parseInt($("#productTotal"+id).html());
+                    var odlT = parseInt($("#cartTotal").html());
+                    $("#cartTotal").html(odlT-minusPrice);
+                    $("#product"+id).remove();
                 }
+                    
+            },
+        });
+
+        return false;
+    });
+
+    $(document).on('click', '.btn_crement_product', function(e){
+        e.preventDefault();
+        var $thisbutton = $(this),
+        $form = $thisbutton.closest('form.cart_quantity'),
+        $input = $form.find('input[name=quantity]');
+        var qty = Number($input.val());
+        var pid = Number($form.find('input[name=product_id]').val());
+        var i = Number($thisbutton.val());
+        if(qty==1 && i==-1) return false;
+        if(qty<0){$input.val(1); return false;}
+        qty += i;
+        $input.val(qty);
+        var data = {
+            action: 'crement_product_qty',
+            productID: pid,
+            qty: qty
+        };
+
+        $.ajax({
+            type: 'post',
+            url: "Panier.php",
+            data: data,
+            success: function (response) {
+                $("#nbProductInCart").html(response);
+                var productPrice = parseInt($("#productPrice"+pid).html());
+                $("#productTotal"+pid).html(productPrice*qty);
+                var t = 0;
+                $('.product_total').each(function(){
+                    t += parseInt($(this).html());
+                });
+                $("#cartTotal").html(t);
             },
         });
 

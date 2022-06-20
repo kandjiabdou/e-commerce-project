@@ -36,11 +36,11 @@ class SigninController extends Controller{
       $password = htmlspecialchars($_POST['password']);
     }
      
-    if ($this->isSigninFormFilledAndValid()) {
+    if ($this->isSigninFormFilledAndValid()){
       if (!$this->databaseUser->isUserNameExist($username)) {
         $this->databaseUser->createUser($firstName, $lastName, $username, $password);
         $role = $this->databaseUser->getUserRole($username);
-        $this->authenticationService->connectUser($role);
+        $this->authenticationService->connectUser($role, 1);
         if($role == 2 ) $this->redirectToHomepage();
         else $this->redirectToAminpage();
       } else {

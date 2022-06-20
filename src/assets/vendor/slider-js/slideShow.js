@@ -23,7 +23,7 @@ $(document).ready(function () {
                     cover: "assets/image/silder/slider-1.jpg"
                 },
                 title: 'Decouvrez les nouveaux produits',
-                desc: "If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. or randomised words which don't look even slightly believable.",
+                desc: "Faites des bonnes affaires à CATEMONORD ! Profitez des meilleurs prix toute l'année avec nos ventes flash, nos petits prix, nos bons plans et nos déstockages dans tous nos rayons, téléphone, ordinateur, montre, caméra.",
                 descLength: 220,
                 button: {
                     text: 'Acheter maintenant',
@@ -37,7 +37,7 @@ $(document).ready(function () {
                     cover: "assets/image/silder/slider-2.jpg"
                 },
                 title: 'Meilleur marque',
-                desc: "If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. or randomised words which don't look even slightly believable.",
+                desc: "Faites des bonnes affaires à CATEMONORD ! Profitez des meilleurs prix toute l'année avec nos ventes flash, nos petits prix, nos bons plans et nos déstockages dans tous nos rayons, téléphone, ordinateur, montre, caméra.",
                 button: {
                     text: 'Acheter maintenant',
                     url: 'index.php?ctrl=Product&act=allProduct',
@@ -50,7 +50,7 @@ $(document).ready(function () {
                     cover: "assets/image/silder/slider-3.jpg"
                 },
                 title: 'Qualité - Prix',
-                desc: "If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. or randomised words which don't look even slightly believable.",
+                desc: "Faites des bonnes affaires à CATEMONORD ! Profitez des meilleurs prix toute l'année avec nos ventes flash, nos petits prix, nos bons plans et nos déstockages dans tous nos rayons, téléphone, ordinateur, montre, caméra.",
                 descLength: 190,
                 button: {
                     text: 'Acheter maintenant',
@@ -64,7 +64,7 @@ $(document).ready(function () {
                     cover: "assets/image/silder/slider-6.jpg"
                 },
                 title: 'Changez d\'idée',
-                desc: "If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. or randomised words which don't look even slightly believable.",
+                desc: "Faites des bonnes affaires à CATEMONORD ! Profitez des meilleurs prix toute l'année avec nos ventes flash, nos petits prix, nos bons plans et nos déstockages dans tous nos rayons, téléphone, ordinateur, montre, caméra.",
                 button: {
                     text: 'Acheter maintenant',
                     url: 'index.php?ctrl=Product&act=allProduct',

@@ -80,7 +80,7 @@ function navigation(){
         <div class="row">
           <div class="header_menu_wrapper">
             <nav class="navbar navbar-expand-md navbar-light">
-              <a class="navbar-brand" href="#"><img src="/e-commerce-project/src/assets/image/logo/logo.png" alt="logo"></a>
+              <a class="navbar-brand" href="#"><img src="/e-commerce-project/src/assets/image/logo.png" alt="logo"></a>
               <div class="collapse navbar-collapse mean-menu" style="display: block;">
                 <div class="others-option align-items-center">
                   <div class="option-item">

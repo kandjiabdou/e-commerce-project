@@ -26,7 +26,7 @@ class AdminModel{
   public function addProduct($name, $qty, $prix, $categ, $descrip): void{
     try {
       $sql = "INSERT INTO `produit` (`nomProduit`, `prix`, `description`, `cheminimage`, `categorieID`, `quantiteProduit`) ";
-      $sql .= "VALUES ( :name, :prix, :descrip, 'Images/Produit/1.jpg', :categ, :qty);";
+      $sql .= "VALUES ( :name, :prix, :descrip, 'default_product.jpg', :categ, :qty);";
       $request = $this->database->prepare($sql);
       $request->execute([
         'name' => $name,

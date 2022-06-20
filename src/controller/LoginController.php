@@ -24,9 +24,10 @@ class LoginController extends Controller{
       if ($this->databaseUser->checkUserExistence($username, $password)) {
         //L'utilisateur existe, il peut se connecter
         $role = $this->databaseUser->getUserRole($username);
-        $this->authenticationService->connectUser($role);
+        $id = $this->databaseUser->getUserID($username);
+        $this->authenticationService->connectUser($role, $id);
         if($role == 2 ) $this->redirectToHomepage();
-        else $this->redirectToAminpage(); 
+        else $this->redirectToAminpage();
       } else {
         $error = 'Nom d\'utilisateur ou mot de passe incorrect';
       }

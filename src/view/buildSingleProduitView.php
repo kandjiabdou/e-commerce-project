@@ -8,106 +8,55 @@ function buildSingleProduitView($produit): string
 	$prix_reduct=$produit['prix']*0.85;
 
 	$cheminimage=$produit['cheminimage'];
+	$pid=$produit['produitID'];
     return <<<HTML
     <div id="content" class="single_products_page">
 		<!-- single products page -->
 		<div id="products_products" class="single_products_section">
 			<div class="container-fluid">
 				<div class="row">
-					<div class="col-sm-6">
+					<div class="col-sm-5">
 						<div class="eb_right single_products_right_side">
 							<div class="single_products_images">
 								<div class="single_product_image">
 									<div class="sp-loading">
-										<img src="$cheminimage" alt="" width="100%">
-									</div>
-								</div>
-
-								<div class="sp-wrap">
-									<div id="additional_silder_products_images" class="owl-carousel">
-										<div class="item">
-											<a href="assets/image/products/product-1.jpg">
-												<img src="assets/image/products/product-2.jpg" alt="">
-											</a>
-										</div>
-										<div class="item">
-											<a href="assets/image/products/product-3.jpg">
-												<img src="assets/image/products/product-4.jpg" alt="">
-											</a>
-										</div>
-										<div class="item">
-											<a href="assets/image/products/product-5.jpg">
-												<img src="assets/image/products/product-6.jpg" alt="">
-											</a>
-										</div>
-										<div class="item">
-											<a href="assets/image/products/product-7.jpg">
-												<img src="assets/image/products/product-8.jpg" alt="">
-											</a>
-										</div>
-										<div class="item">
-											<a href="assets/image/products/product-9.jpg">
-												<img src="assets/image/products/product-10.jpg" alt="">
-											</a>
-										</div>
-										<div class="item">
-											<a href="assets/image/products/product-11.jpg">
-												<img src="assets/image/products/product-12.jpg" alt="">
-											</a>
-										</div>
-
+										<img src="assets/image/$cheminimage" alt="" width="100%">
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 
-
-					<div class="col-sm-6">
+					<div class="col-sm-7">
 						<div class="eb_left single_products_left_side">
 							<h2>$nom</h2>
 
 							<hr>
 							<div class="price-block">
 								<div class="price-box">
-									<p class="in-stock"><i class="fa fa-check"></i> In Stock</p>
-									<p class="special-price"> <span class="price-label">Special Price</span> <span
-											id="product-price-48" class="price"> $prix_reduct</span> </p>
-									<p class="old-price"> <span class="price-label">Regular Price:</span> <span
-											class="price"> $prix</span> </p>
+									<p class="in-stock"><i class="fa fa-check"></i> En Stock</p>
+									<p class="old-price"> <span class="price-label">Special Price</span>
+									<span class="price"> $prix_reduct</span> </p>
+									<p class="special-price"> <span class="price-label">Regular Price:</span>
+									<span id="product-price-48" class="price"> $prix</span> </p>
 								</div>
 							</div>
 
 							<div class="add-to-box">
 								<div class="add-to-cart">
-									<div class="pull-left">
-										<div class="custom pull-left">
-											<button
-												onclick="var result = document.getElementById('qty'); var qty = result.value; if( !isNaN( qty ) && qty > 1 ) result.value--;return false;"
-												class="reduced items-count" type="button"><i
-													class="fa fa-minus">&nbsp;</i></button>
-											<input type="number" min="1" class="input-text qty" title="Qty" value="1"
-												maxlength="12" id="qty" name="qty">
-											<button
-												onclick="var result = document.getElementById('qty'); var qty = result.value; if( !isNaN( qty )) result.value++;return false;"
-												class="increase items-count" type="button"><i
-													class="fa fa-plus">&nbsp;</i></button>
-										</div>
-									</div>
-									<button onclick="productAddToCartForm.submit(this)" class="btn btn-cart"
-										title="Add to Cart" type="button">Add to Cart</button>
+									<button value="$pid" class="btn_ajout_panier btn btn-cart" title="Ajouter au panier" type="button">Ajouter au panier</button>
 								</div>
 							</div>
 
 							<div class="short-description">
-								<h3>overview</h3>
+								<h3>Description du produit</h3>
 								<p>$des</p>
 							</div>
 
 							<ul class="shipping-pro">
-								<li>Free Wordwide Shipping</li>
-								<li>30 Days Return</li>
-								<li>Member Discount</li>
+								<li>Livraison gratuite</li>
+								<li>30 jours de retour</li>
+								<li>Promo pour les membres</li>
 							</ul>
 
 						</div>
