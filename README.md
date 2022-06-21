@@ -10,6 +10,8 @@ Ce projet est un site e-commerce fait dans le cadre académique.
 	- Abdou KANDJI
 	- Abdoulaye BARRY
 	- Mouhamed GUEYE
+	- Alassane BA
+	- Mouhamed Moustaphpa Seck
 
 
 
